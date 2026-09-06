@@ -366,7 +366,7 @@ function setDailyFC(data) {
     dailyFCContainer.innerHTML = "";
     for (let i = 1; i <= 7; i++){
         dailyFCContainer.innerHTML = dailyFCContainer.innerHTML + 
-        `<div class="d${i}-fc grid shrink-0 w-24 grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
+        `<div class="d${i}-fc grid w-full grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
             <p class="text-nowrap">${data.dailyData.dailyDay[i]}</p>
             <img class="w-10 h-10 mr-4 flex justify-self-center" src="Assets/icons/${getWeatherIcon(data.dailyData.dailyWCondition[i])}" alt="">
             <div class="flex lap:max-desk:justify-around ">
@@ -377,9 +377,9 @@ function setDailyFC(data) {
                 </div>
                 <p class="p-1 max-temp w-[29.5%]">${data.dailyData.dailyMaxFeelsLike[i]}°</p>
                 </div>
-                <div class="flex justify-self-end w-[78%]">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="20" viewBox="0 0 256 256" xml:space="preserve"> <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><path d="M 45 90 c -18.12 0 -32.833 -14.667 -33.494 -33.391 l -0.002 -0.105 c 0 -15.42 10.55 -27.84 19.027 -37.82 c 4.985 -5.87 9.694 -11.414 11.065 -16.127 C 42.041 1.027 43.409 0 45 0 s 2.959 1.027 3.403 2.556 l 0 0 c 1.371 4.714 6.08 10.258 11.065 16.127 c 8.477 9.98 19.026 22.4 19.026 37.82 l -0.002 0.105 C 77.833 75.333 63.121 90 45 90 z M 17.504 56.451 C 18.077 71.903 30.145 84 45 84 c 14.856 0 26.923 -12.097 27.496 -27.549 c -0.025 -13.192 -9.361 -24.184 -17.6 -33.883 C 50.951 17.924 47.383 13.723 45 9.585 c -2.383 4.138 -5.951 8.339 -9.896 12.983 C 26.866 32.267 17.529 43.259 17.504 56.451 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,183,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /></g></svg>
-                    <p>${data.dailyData.dailyPrepProbability[i]}%</p>
+                <div class="flex justify-self-end w-full border justify-around items-center">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve"> <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><path d="M 45 90 c -18.12 0 -32.833 -14.667 -33.494 -33.391 l -0.002 -0.105 c 0 -15.42 10.55 -27.84 19.027 -37.82 c 4.985 -5.87 9.694 -11.414 11.065 -16.127 C 42.041 1.027 43.409 0 45 0 s 2.959 1.027 3.403 2.556 l 0 0 c 1.371 4.714 6.08 10.258 11.065 16.127 c 8.477 9.98 19.026 22.4 19.026 37.82 l -0.002 0.105 C 77.833 75.333 63.121 90 45 90 z M 17.504 56.451 C 18.077 71.903 30.145 84 45 84 c 14.856 0 26.923 -12.097 27.496 -27.549 c -0.025 -13.192 -9.361 -24.184 -17.6 -33.883 C 50.951 17.924 47.383 13.723 45 9.585 c -2.383 4.138 -5.951 8.339 -9.896 12.983 C 26.866 32.267 17.529 43.259 17.504 56.451 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,183,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /></g></svg>
+                    <p class="border flex self-end">${data.dailyData.dailyPrepProbability[i]}%</p>
                 </div>
         </div>`;
     }
