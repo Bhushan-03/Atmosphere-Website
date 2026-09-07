@@ -713,7 +713,7 @@
                 </div>
                 </div>
 
-                <div class="w-a-g-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%]">
+                <div class="w-a-g-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%] text-(--weather-normal-text)">
                     <p class="font-semibold text-(--weather-main-text)">WEATHER AT A GLANCE</p>
                     <div class="grid grid-cols-3 grid-rows-3 gap-3 mt-6 h-[88%] w-full items-center lap:max-desk:h-[85%]">
 
@@ -750,7 +750,7 @@
                                 <div class="flex flex-col items-center lap:max-desk:gap-0">
                                     <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">UV Index</p>
                                     <p class="wag-uvIndex flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">6.2</p>
-                                    <p class="lap:max-desk:hidden">Moderate</p>
+                                    <!-- <p class="lap:max-desk:hidden">Moderate</p> -->
                                 </div>
                             </div>
                         </div>
@@ -936,7 +936,7 @@
                     <div class="flex justify-between items-center mt-5">
                         <div>
                             <p class="cw-uvIndex text-4xl font-semibold">6.2</p>
-                            <p class="font-semibold">Moderate</p>
+                            <p class="cw-uvLevel font-semibold">Moderate</p>
                         </div>
                         <div class="flex flex-col justify-self-start mr-10">
                             <p>Max UV Today</p>
@@ -945,7 +945,7 @@
                         </div>
                     </div>
                     <p class="mt-2">Sun protection is recommended.</p>
-                        <div class="flex justify-between mt-10 relative lap:max-desk:flex-col lap:max-desk:mt-auto lap:max-desk:mb-auto">
+                        <div class="flex self-center justify-between mt-10 relative lap:max-desk:flex-col lap:max-desk:mt-auto lap:max-desk:mb-auto">
                             <div class="uv-i-graph relative">
                                 <svg class="w-80 h-47.5 lap:max-desk:w-full" viewBox="0 0 320 190">
                                     <defs>
@@ -966,11 +966,6 @@
                                 </svg>
                                 <span class="absolute bottom-4 left-7">0</span>
                                 <span class="absolute bottom-4 right-5">11+</span>
-                            </div>
-                            <div class="space-y-2 mr-8 lap:max-desk:hidden">
-                                <p>UV Exposure</p>
-                                <p class="text-2xl font-semibold">25 min</p>
-                                <p>Recommended Max</p>
                             </div>
                         </div>
                 </div>

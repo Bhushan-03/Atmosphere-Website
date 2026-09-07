@@ -215,9 +215,18 @@ function setGauge(value) {
     document.getElementById("indicator").setAttribute("y2", endY);
 }
 
+function getUVILevel(uvIndex) {
+    if (uvIndex <= 2) return "Low";
+    if (uvIndex <= 5) return "Moderate";
+    if (uvIndex <= 7) return "High";
+    if (uvIndex <= 10) return "Very High";
+    if (uvIndex >= 11) return "Extreme";
+}
+
 
 function setUIData(data) {
     const cw_uvIndex = document.querySelector(".cw-uvIndex");
+    const cw_uvLevel = document.querySelector(".cw-uvLevel");
     const cw_uvIndex_max = document.querySelector(".cw-uvIndex-Max");
     const today_sunrise = document.querySelector(".today-sunrise");
     const today_sunset = document.querySelector(".today-sunset");
@@ -230,6 +239,7 @@ function setUIData(data) {
     setAQIData(data);
     updateSunPosition(data.cwSunrise, data.cwSunset);
     cw_uvIndex.innerText = `${data.cwUVIndex}`;
+    cw_uvLevel.innerText = `${getUVILevel(data.cwUVIndex)}`;
     cw_uvIndex_max.innerText = `${data.cwUVIndexMax}`;
     today_sunrise.innerText = `${data.cwSunrise}`;
     today_sunset.innerText = `${data.cwSunset}`;
@@ -345,7 +355,7 @@ function setHourlyData(data) {
 
     for (let i = 0; i <= 12; i++) {
         hourlyBoxContainer.innerHTML = hourlyBoxContainer.innerHTML + 
-        `<div class="h-fc-b w-22 rounded-xl p-2 bg-(--weather-cards)">
+        `<div class="h-fc-b w-22.5 min-w-22.5 shrink-0 rounded-xl p-2 bg-(--weather-cards) text-(--weather-normal-text)">
             <p class="flex justify-self-center text-sm font-semibold">${data.hourlyData.hourlyTime[i]}</p>
             <img class="w-15 h-15 flex justify-self-center" src="Assets/icons/${getWeatherIcon(data.hourlyData.hourlyWCName[i])}" alt="">
             <p class="flex justify-self-center font-semibold">${data.hourlyData.hourlyTemp[i]}°</p>
