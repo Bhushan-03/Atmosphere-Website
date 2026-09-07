@@ -228,6 +228,7 @@ function setUIData(data) {
     const cw_uvIndex = document.querySelector(".cw-uvIndex");
     const cw_uvLevel = document.querySelector(".cw-uvLevel");
     const cw_uvIndex_max = document.querySelector(".cw-uvIndex-Max");
+    const cw_uvimLevel = document.querySelector(".cw-uvimLevel");
     const today_sunrise = document.querySelector(".today-sunrise");
     const today_sunset = document.querySelector(".today-sunset");
     const today_dlduration = document.querySelector(".today-dlduration");
@@ -241,6 +242,7 @@ function setUIData(data) {
     cw_uvIndex.innerText = `${data.cwUVIndex}`;
     cw_uvLevel.innerText = `${getUVILevel(data.cwUVIndex)}`;
     cw_uvIndex_max.innerText = `${data.cwUVIndexMax}`;
+    cw_uvimLevel.innerText = `${getUVILevel(data.cwUVIndexMax)}`;
     today_sunrise.innerText = `${data.cwSunrise}`;
     today_sunset.innerText = `${data.cwSunset}`;
     today_dlduration.innerText = `${data.cwDayLightDuration}`;
