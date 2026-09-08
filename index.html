@@ -298,7 +298,7 @@
 
             </div>
 
-            <div class="weather-Main-Card w-auto h-full py-3 bg-cover bg-center mt-5 mx-3 my-2 rounded-2xl relative">
+            <div class="weather-Main-Card w-auto h-full bg-[url(/Assets/staticbg/ClearSky.png)] py-3 bg-cover bg-center mt-5 mx-3 my-2 rounded-2xl relative">
 
                 <div class="clw-info w-full h-full relative">
 
@@ -325,17 +325,17 @@
                         </div>
 
                         <div class="cl-dt flex space-x-2 text-(--weather-text-white)">
-                            <!-- <p class="cwl-dayName">Thursday</p>
+                            <p class="cwl-dayName">Thursday</p>
                             <p>•</p>
                             <p class="cwl-date">13 Aug 2026</p>
                             <p>•</p>
-                            <p class="cwl-time">1:30 PM</p> -->
+                            <p class="cwl-time">1:30 PM</p>
                         </div>
 
                         <div class="clw mt-5 text-(--weather-text-white)">
                             <!-- <p class="currentWeatherCondition">Partly Cloudy</p> -->
-                            <p class="currentWeatherCondition"></p>
-                            <p class="currentTemp text-8xl font-bold mt-2"></p>
+                            <p class="currentWeatherCondition">Sunny</p>
+                            <p class="currentTemp text-8xl font-bold mt-2">25.2°</p>
                             <div class="hl-temp flex space-x-3 mt-3">
                                 <div class="l-temp flex">
                                     <svg class="text-(--weather-text-white)" xmlns="http://www.w3.org/2000/svg"
@@ -371,8 +371,7 @@
 
                     </div>
 
-                    <div
-                        class="clwd absolute text-(--weather-text-white) w-[23%] h-auto border right-10 px-4 py-4 rounded-3xl space-y-5 flex flex-col justify-center top-[25%] bg-[rgba(255, 255, 255, 0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border-[1px_solid_rgba(255,255,255,0.3)] space-y-4 lap:max-desk:w-[30%] transition-all duration-300 ease-in-out hover:transform-3d hover:scale-[1.05] desk:max-largDesk:w-[30%] desk:max-largDesk:top-[20%] cursor-pointer">
+                    <div class="clwd absolute text-(--weather-text-white) w-[23%] h-auto border right-10 px-4 py-4 rounded-3xl space-y-5 flex flex-col justify-center top-[25%] bg-[rgba(255, 255, 255, 0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border-[1px_solid_rgba(255,255,255,0.3)] space-y-4 lap:max-desk:w-[30%] transition-all duration-300 ease-in-out hover:transform-3d hover:scale-[1.05] desk:max-largDesk:w-[30%] desk:max-largDesk:top-[20%] tab:max-lap:w-[35%] cursor-pointer">
                         <div class="relative clwd-humidity flex justify-between w-full">
                             <div class="flex space-x-3">
                                 <svg class="w-6 h-6 text-(--weather-text-white)" xmlns="http://www.w3.org/2000/svg"
@@ -524,9 +523,9 @@
                         <div class="d1-fc grid grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
                             <p class="">Today</p>
                             <img class="w-10 h-10 mr-4 flex justify-self-center" src="Assets/icons/PartlyCloudy.png" alt="">
-                            <div class="lap:max-desk:justify-around grid grid-cols-[1fr_3fr_1fr]">
+                            <div class="lap:max-desk:justify-around tab:max-lap:justify-between grid grid-cols-[1fr_3fr_1fr]">
                                 <p class="p-1 min-temp">25.2°</p>
-                                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden">
+                                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden tab:max-lap:hidden">
                                     <div
                                         class="tempBar w-0 h-1 self-center m-2 rounded-full bg-[linear-gradient(to_right,#63c4b0_0%,#f5d52a_8%,#ffbd16_55%,#ff633c_100%)]">
                                     </div>
@@ -717,17 +716,17 @@
                     <p class="font-semibold text-(--weather-main-text)">WEATHER AT A GLANCE</p>
                     <div class="grid grid-cols-3 grid-rows-3 gap-3 mt-6 h-[88%] w-full items-center lap:max-desk:h-[85%]">
 
-                        <div class="w-a-g-humidity flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/humidity.png" alt="">
-                            <div class="flex flex-col gap-2 lap:max-desk:gap-0 items-center">
+                        <div class="w-a-g-humidity flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/humidity.png" alt="">
+                            <div class="flex flex-col gap-2 tab:max-lap:gap-0 lap:max-desk:gap-0 items-center">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Humidity</p>
                                 <p class="wag-Humidity flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">78%</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-wind flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-7 lap:max-desk:h-7 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/wind.png" alt="">
-                            <div class="flex flex-col gap-2 lap:max-desk:gap-0 items-center flex-wrap">
+                        <div class="w-a-g-wind flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-7 lap:max-desk:h-7 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/wind.png" alt="">
+                            <div class="flex flex-col gap-2 tab:max-lap:gap-0 lap:max-desk:gap-0 items-center flex-wrap">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Wind</p>
                                 <div class="flex flex-col items-center justify-center">
                                     <p class="wag-windSpeed flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl text-nowrap">14 km/h</p>
@@ -736,18 +735,18 @@
                             </div>
                         </div>
 
-                        <div class="w-a-g-precipitation flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/precipiation.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-precipitation flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/precipiation.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Precipitation</p>
                                 <p class="wag-Precipitation flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">62%</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-uvIndex flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/uv-index.png" alt="">
+                        <div class="w-a-g-uvIndex flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/uv-index.png" alt="">
                             <div class="flex flex-col gap-2 items-center">
-                                <div class="flex flex-col items-center lap:max-desk:gap-0">
+                                <div class="flex flex-col items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                     <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">UV Index</p>
                                     <p class="wag-uvIndex flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">6.2</p>
                                     <!-- <p class="lap:max-desk:hidden">Moderate</p> -->
@@ -755,41 +754,41 @@
                             </div>
                         </div>
 
-                        <div class="w-a-g-visibility flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/visibility.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-visibility flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/visibility.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Visibility</p>
                                 <p class="wag-Visibility flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">8.4 km</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-cloud-cover flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/cloud-cover.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-cloud-cover flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/cloud-cover.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm text-nowrap">CloudCover</p>
                                 <p class="wag-CloudCover flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">62%</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-sunrise flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/sunrise.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-sunrise flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/sunrise.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Sunrise</p>
                                 <p class="wag-Sunrise flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl text-nowrap">6:12 AM</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-sunset flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/sunset.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-sunset flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/sunset.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Sunset</p>
                                 <p class="wag-Sunset flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl text-nowrap">6:58 PM</p>
                             </div>
                         </div>
 
-                        <div class="w-a-g-pressure flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
-                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center" src="Assets/pressure.png" alt="">
-                            <div class="flex flex-col gap-2 items-center lap:max-desk:gap-0">
+                        <div class="w-a-g-pressure flex justify-self-center shadow border border-(--weather-active-icons) rounded-xl w-[95%] h-full items-center gap-2 justify-center tab:max-lap:grid tab:max-lap:grid-rows-[1fr_1.5fr] tab:max-lap:gap-0 tab:max-lap:w-full lap:max-desk:grid lap:max-desk:grid-rows-[1fr_1.5fr] lap:max-desk:gap-0 lap:max-desk:w-full desk:max-largDesk:w-full desk:max-largDesk:gap-0">
+                            <img class="w-10 h-10 lap:max-desk:w-8 lap:max-desk:h-8 lap:max-desk:mt-auto lap:max-desk:justify-self-center tab:max-lap:justify-self-center" src="Assets/pressure.png" alt="">
+                            <div class="flex flex-col gap-2 items-center tab:max-lap:gap-0 lap:max-desk:gap-0">
                                 <p class="lap:max-desk:text-sm desk:max-largDesk:text-sm">Pressure</p>
                                 <p class="wag-Pressure flex justify-self-center font-semibold text-xl lap:max-desk:text-lg desk:max-largDesk:text-xl">1008 hPa</p>
                             </div>
