@@ -96,7 +96,8 @@ function setWeatherCardBG(weatherCondition) {
     if (!selected) {
         return;
     }
-    currentThemeMode = selected.innerText;
+    // console.log(selected.dataset.selectedmode);
+    currentThemeMode = selected.dataset.selectedmode;
     if (currentThemeMode === "Light Mode" || currentThemeMode === "Dark Mode") {
         weathercard.style.backgroundImage = `url(/Assets/staticbg/${conditions[weatherCondition]})`;
     }
@@ -124,6 +125,7 @@ function weatherOptions(weatherCondition) {
         options.forEach(option => {
             option.addEventListener("click", () => {
                 selected.innerHTML = option.innerHTML;
+                selected.dataset.selectedmode = option.innerText;
                 console.log(option.innerText);
                 themeSetter();
                 setWeatherCardBG(weatherCondition);
@@ -355,7 +357,7 @@ function setHourlyData(data) {
     hourlyBoxContainer.innerHTML = "";
     console.log(data.hourlyData);
 
-    for (let i = 0; i <= 12; i++) {
+    for (let i = 0; i <= 13; i++) {
         hourlyBoxContainer.innerHTML = hourlyBoxContainer.innerHTML + 
         `<div class="h-fc-b w-22.5 min-w-22.5 shrink-0 rounded-xl p-2 bg-(--weather-cards) text-(--weather-normal-text)">
             <p class="flex justify-self-center text-sm font-semibold">${data.hourlyData.hourlyTime[i]}</p>
