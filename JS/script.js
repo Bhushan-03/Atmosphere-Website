@@ -474,7 +474,7 @@ function setTempBar() {
         index += 1;
     });
 }
-setTempBar();
+// setTempBar();
 
 
 function temo_ov_linegraph(data) {
@@ -543,7 +543,7 @@ function temo_ov_linegraph(data) {
             horizontalAlign: 'left',
             offsetY: 5,
             labels: {
-                colors: '#373d3f',
+                colors: '#5F6B7A',
             },
         },
         grid: {
