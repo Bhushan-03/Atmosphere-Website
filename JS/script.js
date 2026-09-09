@@ -380,12 +380,12 @@ function setDailyFC(data) {
     dailyFCContainer.innerHTML = "";
     for (let i = 1; i <= 7; i++){
         dailyFCContainer.innerHTML = dailyFCContainer.innerHTML + 
-        `<div class="d${i}-fc grid w-full grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
-            <p class="text-nowrap">${data.dailyData.dailyDay[i]}</p>
+        `<div class="d${i}-fc relative grid w-full tab:max-lap:grid-cols-[1.5fr_0.5fr_1.5fr_0.8fr] desk:max-largDesk:grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
+            <p class="tab:max-lap:w-full text-nowrap">${data.dailyData.dailyDay[i]}</p>
             <img class="w-10 h-10 mr-4 flex justify-self-center" src="Assets/icons/${getWeatherIcon(data.dailyData.dailyWCondition[i])}" alt="">
-            <div class="desk:max-largDesk:grid desk:max-largDesk:grid-cols-[1fr_3fr_1fr] flex lap:max-desk:justify-around">
+            <div class="desk:max-largDesk:grid desk:max-largDesk:grid-cols-[1fr_3fr_1fr] flex lap:max-desk:justify-around tab:max-lap:justify-around">
                 <p class="p-1 min-temp w-[29.5%] min-w-[29.5%]">${data.dailyData.dailyMaxTemp[i]}°</p>
-                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden">
+                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden tab:max-lap:hidden">
                     <div class="tempBar w-0 h-1 self-center m-2 rounded-full bg-[linear-gradient(to_right,#63c4b0_0%,#f5d52a_8%,#ffbd16_55%,#ff633c_100%)]">
                     </div>
                 </div>
