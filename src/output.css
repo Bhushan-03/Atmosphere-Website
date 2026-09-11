@@ -1118,6 +1118,61 @@
     --tw-shadow: 0 0 0.8em var(--tw-shadow-color, #26489a);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  @media (width >= 37.5rem) {
+    @media (width < 48rem) {
+      .largeMob\:max-tab\:absolute {
+        position: absolute;
+      }
+      .largeMob\:max-tab\:top-3 {
+        top: calc(var(--spacing) * 3);
+      }
+      .largeMob\:max-tab\:right-3 {
+        right: calc(var(--spacing) * 3);
+      }
+      .largeMob\:max-tab\:-left-50 {
+        left: calc(var(--spacing) * -50);
+      }
+      .largeMob\:max-tab\:z-10 {
+        z-index: 10;
+      }
+      .largeMob\:max-tab\:mr-auto {
+        margin-right: auto;
+      }
+      .largeMob\:max-tab\:ml-auto {
+        margin-left: auto;
+      }
+      .largeMob\:max-tab\:block {
+        display: block;
+      }
+      .largeMob\:max-tab\:flex {
+        display: flex;
+      }
+      .largeMob\:max-tab\:hidden {
+        display: none;
+      }
+      .largeMob\:max-tab\:h-\[98\%\] {
+        height: 98%;
+      }
+      .largeMob\:max-tab\:w-1\/3 {
+        width: calc(1 / 3 * 100%);
+      }
+      .largeMob\:max-tab\:w-\[98\%\] {
+        width: 98%;
+      }
+      .largeMob\:max-tab\:grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+      .largeMob\:max-tab\:justify-start {
+        justify-content: flex-start;
+      }
+      .largeMob\:max-tab\:gap-2 {
+        gap: calc(var(--spacing) * 2);
+      }
+      .largeMob\:max-tab\:opacity-0 {
+        opacity: 0%;
+      }
+    }
+  }
   @media (width >= 48rem) {
     @media (width < 64rem) {
       .tab\:max-lap\:absolute {
