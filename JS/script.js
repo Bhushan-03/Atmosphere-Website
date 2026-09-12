@@ -359,10 +359,10 @@ function setHourlyData(data) {
 
     for (let i = 0; i <= 13; i++) {
         hourlyBoxContainer.innerHTML = hourlyBoxContainer.innerHTML + 
-        `<div class="h-fc-b w-22.5 min-w-22.5 shrink-0 rounded-xl p-2 bg-(--weather-cards) text-(--weather-normal-text)">
-            <p class="flex justify-self-center text-sm font-semibold">${data.hourlyData.hourlyTime[i]}</p>
-            <img class="w-15 h-15 flex justify-self-center" src="Assets/icons/${getWeatherIcon(data.hourlyData.hourlyWCName[i])}" alt="">
-            <p class="flex justify-self-center font-semibold">${data.hourlyData.hourlyTemp[i]}°</p>
+        `<div class="h-fc-b tab:w-22.5 tab:min-w-22.5 largeMob:max-tab:w-20 largeMob:max-tab:min-w-20 shrink-0 rounded-xl p-2 bg-(--weather-cards) text-(--weather-normal-text)">
+            <p class="flex justify-self-center text-sm font-semibold largeMob:max-tab:text-[13px]">${data.hourlyData.hourlyTime[i]}</p>
+            <img class="w-15 h-15 flex justify-self-center largeMob:max-tab:w-12 largeMob:max-tab:h-12" src="Assets/icons/${getWeatherIcon(data.hourlyData.hourlyWCName[i])}" alt="">
+            <p class="flex justify-self-center font-semibold largeMob:max-tab:text-[13px]">${data.hourlyData.hourlyTemp[i]}°</p>
             <div class="rain-possebility flex items-center justify-center space-x-1 mt-1">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
                     <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
@@ -380,12 +380,12 @@ function setDailyFC(data) {
     dailyFCContainer.innerHTML = "";
     for (let i = 1; i <= 7; i++){
         dailyFCContainer.innerHTML = dailyFCContainer.innerHTML + 
-        `<div class="d${i}-fc relative grid largDesk:grid-cols-[1.5fr_1fr_3fr_1fr] w-full tab:max-lap:grid-cols-[1.5fr_0.5fr_1.5fr_0.8fr] desk:max-largDesk:grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
-            <p class="tab:max-lap:w-full text-nowrap">${data.dailyData.dailyDay[i]}</p>
+        `<div class="d${i}-fc relative grid largDesk:grid-cols-[1.5fr_1fr_3fr_1fr] w-full largeMob:max-tab:grid-cols-[1.5fr_0.5fr_1.5fr_0.8fr] tab:max-lap:grid-cols-[1.5fr_0.5fr_1.5fr_0.8fr] desk:max-largDesk:grid-cols-[1.5fr_1fr_3fr_1fr] lap:max-desk:grid-cols-[1.5fr_0.5fr_1.2fr_0.8fr] items-center justify-center">
+            <p class="tab:max-lap:w-full largeMob:max-tab:w-full text-nowrap">${data.dailyData.dailyDay[i]}</p>
             <img class="w-10 h-10 mr-4 flex justify-self-center" src="Assets/icons/${getWeatherIcon(data.dailyData.dailyWCondition[i])}" alt="">
-            <div class="desk:max-largDesk:grid desk:max-largDesk:grid-cols-[1fr_3fr_1fr] flex lap:max-desk:justify-around tab:max-lap:justify-around">
+            <div class="desk:max-largDesk:grid desk:max-largDesk:grid-cols-[1fr_3fr_1fr] flex lap:max-desk:justify-around largeMob:max-tab:justify-around tab:max-lap:justify-around">
                 <p class="p-1 min-temp w-[29.5%] min-w-[29.5%]">${data.dailyData.dailyMaxTemp[i]}°</p>
-                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden tab:max-lap:hidden">
+                <div class="w-full overflow-hidden rounded-2xl p-1 lap:max-desk:hidden largeMob:max-tab:hidden tab:max-lap:hidden">
                     <div class="tempBar w-0 h-1 self-center m-2 rounded-full bg-[linear-gradient(to_right,#63c4b0_0%,#f5d52a_8%,#ffbd16_55%,#ff633c_100%)]">
                     </div>
                 </div>
