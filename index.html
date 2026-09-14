@@ -115,14 +115,25 @@
 
         <div class="mainScreen relative w-auto h-[95%] self-center flex flex-col mx-4 rounded-2xl bg-(--weather-navbar) shadow p-3 overflow-y-scroll scrollbar-none lap:max-desk:h-[95%] tab:max-lap:h-[98%] tab:max-lap:w-[98%] tab:max-lap:ml-auto tab:max-lap:mr-auto largeMob:max-tab:h-[98%] largeMob:max-tab:w-[98%] largeMob:max-tab:ml-auto largeMob:max-tab:mr-auto smallMob:max-largeMob:w-[99%] smallMob:max-largeMob:h-[99%] smallMob:max-largeMob:ml-auto smallMob:max-largeMob:mr-auto smallMob:max-largeMob:p-0">
 
-            <div class="header relative flex w-auto h-[8%] justify-between items-center mx-3">
+            <div class="header relative flex w-auto h-[8%] justify-between items-center mx-3 smallMob:max-largeMob:py-1">
 
                 <div class="hidden tab:max-lap:flex tab:max-lap:space-x-2 largeMob:max-tab:flex largeMob:max-tab:gap-2 smallMob:max-largeMob:flex smallMob:max-largeMob:gap-2">
                     <svg class="hamburgurBtn w-7 h-7 text-(--weather-main-text)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 18H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 12L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <p class="text-2xl text-(--weather-main-text) font-bold smallMob:max-largeMob:text-xl">Atmosphere</p>
                 </div>
 
-                <div class="searchBar smallMob:max-largeMob:absolute smallMob:max-largeMob:w-1/2 lap:w-2/4 rounded-2xl relative cursor-pointer tab:max-lap:w-1/3 largeMob:max-tab:w-1/3">
+                <button class="searchBtn items-center rounded-full p-1 bg-(--weather-cards)">
+                    <svg class="w-7 h-7 relative text-(--weather-icons)" viewBox="0 -0.5 25 25"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+                        d="M5.5 10.7655C5.50003 8.01511 7.44296 5.64777 10.1405 5.1113C12.8381 4.57483 15.539 6.01866 16.5913 8.55977C17.6437 11.1009 16.7544 14.0315 14.4674 15.5593C12.1804 17.0871 9.13257 16.7866 7.188 14.8415C6.10716 13.7604 5.49998 12.2942 5.5 10.7655Z"
+                        stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path stroke="currentColor" d="M17.029 16.5295L19.5 19.0005" stroke="#000000" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <!-- <div class="searchBar smallMob:max-largeMob:absolute smallMob:max-largeMob:w-full smallMob:max-largeMob:top-12 smallMob:max-largeMob:z-10 smallMob:max-largeMob:bg-[rgba(255, 255, 255, 0.2)] smallMob:largeMob:backdrop-blur-lg w-2/4 rounded-2xl relative cursor-pointer tab:max-lap:w-1/3 largeMob:max-tab:w-1/3">
                     <svg class="w-7 h-7 absolute left-1 top-2.5 text-(--weather-icons)" viewBox="0 -0.5 25 25"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd"
@@ -133,7 +144,7 @@
                     </svg>
                     <input class="searchedCity w-full shadow p-3 pl-10 rounded-2xl bg-(--weather-cards) cursor-pointer text-(--weather-muted-text) border border-[1px_solid_rgba(255,255,255,0.3)]" type="text"
                         placeholder="Search for a city or place...">
-                </div>
+                </div> -->
 
                 <div class="w-auto relative flex items-center space-x-4">
 
@@ -144,14 +155,14 @@
     
                     <div class="currentLoc group">
                         <button class="currentlocationBtn relative flex items-center space-x-1 w-11 h-11 rounded-full bg-(--weather-cards) shadow-2xl justify-center hover:bg-(--weather-hover-btn) transition-all duration-300 ease-in-out cursor-pointer">
-                            <img class="w-8 h-8 relative" src="Assets/placeholder.png" alt="">
+                            <img class="w-8 h-8 relative smallMob:max-largeMob:w-7 smallMob:max-largeMob:h-7" src="Assets/placeholder.png" alt="">
                         </button>
                         <p class="absolute py-0.5 px-1 bg-(--weather-cards) rounded-full shadow opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out -translate-x-12 text-sm font-semibold text-(--weather-main-text)">Use Current Location</p>
                     </div>
     
                     <div class="dropdown w-[60%] relative mr-2">
                         <div
-                            class="select relative w-full bg-(--weather-cards) flex justify-between items-center rounded-xl shadow-[0_0_0.2em_#26489a] px-3 py-2 cursor-pointer transition-[background_0.3s] active:border-[2px_#26489a_solid] active:shadow-[0_0_0.8em_#26489a] hover:bg-(--weather-hover-btn) space-x-2 desk:max-largDesk:w-full">
+                            class="select relative w-full bg-(--weather-cards) flex justify-between items-center rounded-xl shadow-[0_0_0.2em_#26489a] px-3 py-2 cursor-pointer transition-[background_0.3s] active:border-[2px_#26489a_solid] active:shadow-[0_0_0.8em_#26489a] hover:bg-(--weather-hover-btn) space-x-2 smallMob:max-largeMob:space-x-0.5 desk:max-largDesk:w-full">
                             <span class="selected flex space-x-2 items-center" data-selectedmode="Dynamic Mode">
                                 <svg class="w-6 h-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 512 512">

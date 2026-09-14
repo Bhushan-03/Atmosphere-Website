@@ -39,6 +39,7 @@
     --radius-4xl: 2rem;
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --blur-sm: 8px;
+    --blur-lg: 16px;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -1179,6 +1180,9 @@
       .smallMob\:max-largeMob\:top-3 {
         top: calc(var(--spacing) * 3);
       }
+      .smallMob\:max-largeMob\:top-12 {
+        top: calc(var(--spacing) * 12);
+      }
       .smallMob\:max-largeMob\:right-0 {
         right: 0px;
       }
@@ -1203,20 +1207,26 @@
       .smallMob\:max-largeMob\:hidden {
         display: none;
       }
+      .smallMob\:max-largeMob\:h-7 {
+        height: calc(var(--spacing) * 7);
+      }
       .smallMob\:max-largeMob\:h-\[98\%\] {
         height: 98%;
       }
       .smallMob\:max-largeMob\:h-\[99\%\] {
         height: 99%;
       }
-      .smallMob\:max-largeMob\:w-1\/2 {
-        width: calc(1 / 2 * 100%);
+      .smallMob\:max-largeMob\:w-7 {
+        width: calc(var(--spacing) * 7);
       }
       .smallMob\:max-largeMob\:w-\[97\%\] {
         width: 97%;
       }
       .smallMob\:max-largeMob\:w-\[99\%\] {
         width: 99%;
+      }
+      .smallMob\:max-largeMob\:w-full {
+        width: 100%;
       }
       .smallMob\:max-largeMob\:-translate-x-17 {
         --tw-translate-x: calc(var(--spacing) * -17);
@@ -1236,6 +1246,11 @@
         margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
         margin-block-end: calc(var(--spacing) * calc(1 - var(--tw-space-y-reverse)));
       }
+      :where(.smallMob\:max-largeMob\:space-x-0\.5 > :not(:last-child)) {
+        --tw-space-x-reverse: 0;
+        margin-inline-start: calc(calc(var(--spacing) * 0.5) * var(--tw-space-x-reverse));
+        margin-inline-end: calc(calc(var(--spacing) * 0.5) * calc(1 - var(--tw-space-x-reverse)));
+      }
       .smallMob\:max-largeMob\:p-0 {
         padding: 0px;
       }
@@ -1244,6 +1259,12 @@
       }
       .smallMob\:max-largeMob\:py-0 {
         padding-block: 0px;
+      }
+      .smallMob\:max-largeMob\:py-1 {
+        padding-block: var(--spacing);
+      }
+      .smallMob\:max-largeMob\:pt-1 {
+        padding-top: var(--spacing);
       }
       .smallMob\:max-largeMob\:pl-3 {
         padding-left: calc(var(--spacing) * 3);
@@ -1417,6 +1438,15 @@
       }
     }
   }
+  @media (width >= 20rem) {
+    @media (width >= 37.5rem) {
+      .smallMob\:largeMob\:backdrop-blur-lg {
+        --tw-backdrop-blur: blur(var(--blur-lg));
+        -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+        backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+      }
+    }
+  }
   @media (width >= 48rem) {
     .tab\:h-full {
       height: 100%;
@@ -1543,9 +1573,6 @@
     }
   }
   @media (width >= 64rem) {
-    .lap\:w-2\/4 {
-      width: calc(2 / 4 * 100%);
-    }
     @media (width < 80rem) {
       .lap\:max-desk\:right-0 {
         right: 0px;
