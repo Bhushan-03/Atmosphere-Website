@@ -1176,9 +1176,6 @@
       .smallMob\:max-largeMob\:relative {
         position: relative;
       }
-      .smallMob\:max-largeMob\:top-2 {
-        top: calc(var(--spacing) * 2);
-      }
       .smallMob\:max-largeMob\:top-3 {
         top: calc(var(--spacing) * 3);
       }
@@ -1212,17 +1209,14 @@
       .smallMob\:max-largeMob\:h-\[99\%\] {
         height: 99%;
       }
+      .smallMob\:max-largeMob\:w-1\/2 {
+        width: calc(1 / 2 * 100%);
+      }
       .smallMob\:max-largeMob\:w-\[97\%\] {
         width: 97%;
       }
-      .smallMob\:max-largeMob\:w-\[98\%\] {
-        width: 98%;
-      }
       .smallMob\:max-largeMob\:w-\[99\%\] {
         width: 99%;
-      }
-      .smallMob\:max-largeMob\:w-full {
-        width: 100%;
       }
       .smallMob\:max-largeMob\:-translate-x-17 {
         --tw-translate-x: calc(var(--spacing) * -17);
@@ -1242,17 +1236,21 @@
         margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
         margin-block-end: calc(var(--spacing) * calc(1 - var(--tw-space-y-reverse)));
       }
+      .smallMob\:max-largeMob\:p-0 {
+        padding: 0px;
+      }
       .smallMob\:max-largeMob\:px-0 {
         padding-inline: 0px;
       }
       .smallMob\:max-largeMob\:py-0 {
         padding-block: 0px;
       }
-      .smallMob\:max-largeMob\:pl-2 {
-        padding-left: calc(var(--spacing) * 2);
-      }
       .smallMob\:max-largeMob\:pl-3 {
         padding-left: calc(var(--spacing) * 3);
+      }
+      .smallMob\:max-largeMob\:text-xl {
+        font-size: var(--text-xl);
+        line-height: var(--tw-leading, var(--text-xl--line-height));
       }
       .smallMob\:max-largeMob\:opacity-0 {
         opacity: 0%;
@@ -1545,6 +1543,9 @@
     }
   }
   @media (width >= 64rem) {
+    .lap\:w-2\/4 {
+      width: calc(2 / 4 * 100%);
+    }
     @media (width < 80rem) {
       .lap\:max-desk\:right-0 {
         right: 0px;
