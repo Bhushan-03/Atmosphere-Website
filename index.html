@@ -131,8 +131,10 @@
                         <path stroke="currentColor" d="M17.029 16.5295L19.5 19.0005" stroke="#000000" stroke-width="1.5"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
+                    <svg class="hideSearchBar w-10 h-10 text-(--weather-main-text) hidden smallMob:max-largeMob:block smallMob:max-largeMob:absolute smallMob:max-largeMob:right-0 smallMob:max-largeMob:top-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M12 12L16 16M8 8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     <input class="searchedCity w-full shadow p-3 pl-10 rounded-2xl bg-(--weather-cards) cursor-pointer text-(--weather-muted-text) border border-[1px_solid_rgba(255,255,255,0.3)]" type="text"
                         placeholder="Search for a city or place...">
+
                 </div>
 
                 <div class="w-auto relative flex items-center space-x-4 smallMob:max-largeMob:space-x-2">
@@ -346,7 +348,7 @@
                         <div class="clw mt-5 text-(--weather-text-white)">
                             <!-- <p class="currentWeatherCondition">Partly Cloudy</p> -->
                             <p class="currentWeatherCondition">Sunny</p>
-                            <p class="currentTemp text-8xl font-bold mt-2 largeMob:max-tab:text-6xl">25.2°</p>
+                            <p class="currentTemp text-8xl font-bold mt-2 largeMob:max-tab:text-6xl smallMob:max-largeMob:text-6xl">25.2°</p>
                             <div class="hl-temp flex space-x-3 mt-3">
                                 <div class="l-temp flex">
                                     <svg class="text-(--weather-text-white)" xmlns="http://www.w3.org/2000/svg"
@@ -382,8 +384,8 @@
 
                     </div>
 
-                    <div class="clwd absolute text-(--weather-text-white) w-[23%] h-auto border right-10 px-4 py-4 rounded-3xl space-y-5 flex flex-col justify-center top-[25%] bg-[rgba(255, 255, 255, 0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border-[1px_solid_rgba(255,255,255,0.3)] space-y-4 lap:max-desk:w-[30%] transition-all duration-300 ease-in-out hover:transform-3d hover:scale-[1.05] desk:max-largDesk:w-[30%] desk:max-largDesk:top-[20%] largeMob:max-tab:w-[45%] largeMob:max-tab:top-[6%] largeMob:max-tab:right-5 tab:max-lap:w-[35%] smallMob:max-largeMob:relative smallMob:max-largeMob:top-3 smallMob:max-largeMob:grid smallMob:max-largeMob:grid-cols-2 smallMob:max-largeMob:right-0 smallMob:max-largeMob:w-[97%] smallMob:max-largeMob:ml-auto smallMob:max-largeMob:mr-auto smallMob:max-largeMob:mb-2 cursor-pointer">
-                        <div class="relative clwd-humidity grid grid-cols-[0.4fr_1.8fr_1fr] w-full items-center">
+                    <div class="clwd absolute text-(--weather-text-white) w-[23%] h-auto border right-10 px-4 py-4 rounded-3xl space-y-5 flex flex-col justify-center top-[25%] bg-[rgba(255, 255, 255, 0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-sm border-[1px_solid_rgba(255,255,255,0.3)] space-y-4 lap:max-desk:w-[35%] transition-all duration-300 ease-in-out hover:transform-3d hover:scale-[1.05] desk:max-largDesk:w-[30%] desk:max-largDesk:top-[20%] largeMob:max-tab:w-[45%] largeMob:max-tab:top-[6%] largeMob:max-tab:right-5 tab:max-lap:w-[35%] smallMob:max-largeMob:relative smallMob:max-largeMob:top-3 smallMob:max-largeMob:grid smallMob:max-largeMob:grid-cols-2 smallMob:max-largeMob:grid-rows-2 smallMob:max-largeMob:gap-2 smallMob:max-largeMob:space-y-1.5 smallMob:max-largeMob:right-0 smallMob:max-largeMob:w-[97%] smallMob:max-largeMob:ml-auto smallMob:max-largeMob:mr-auto smallMob:max-largeMob:mb-2 cursor-pointer">
+                        <div class="relative clwd-humidity grid grid-cols-[0.3fr_4fr] gap-3 w-full h-full items-center smallMob:max-largeMob:rounded-xl smallMob:max-largeMob:px-1 smallMob:max-largeMob:shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
                             <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256"
                                     xml:space="preserve">
@@ -395,13 +397,14 @@
                                             transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
                                     </g>
                             </svg>
-                            <p class="flex self-start w-full">Humidity</p>
-                            <p class="cw-Humidity flex border justify-self-end smallMob:max-largeMob:flex smallMob:max-largeMob:justify-self-end">78%</p>
+                            <div class="largeMob:flex justify-between">
+                                <p class="flex self-start text-sm">Humidity</p>
+                                <p class="cw-Humidity flex smallMob:max-largeMob:font-semibold">78%</p>
+                            </div>
                         </div>
 
-                        <div class="clwd-wind flex justify-between">
-                            <div class="flex space-x-3 largeMob:max-tab:space-x-1.5 largeMob:max-tab:items-center">
-                                <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
+                        <div class="clwd-wind relative grid grid-cols-[0.3fr_4fr] gap-3 w-full h-full items-center smallMob:max-largeMob:rounded-xl smallMob:max-largeMob:px-1 smallMob:max-largeMob:shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+                            <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256"
                                     xml:space="preserve">
                                     <g style="stroke: currentColor; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
@@ -423,15 +426,15 @@
                                             style="stroke: currentColor; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
                                             transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
                                     </g>
-                                </svg>
-                                <p>Wind</p>
+                            </svg>
+                            <div class="largeMob:flex justify-between">
+                                <p class="flex self-start text-sm">Wind</p>
+                                <p class="cw-WSpeed flex smallMob:max-largeMob:font-semibold">14 km/h SW</p>
                             </div>
-                            <p class="cw-WSpeed">14 km/h SW</p>
                         </div>
 
-                        <div class="clwd-pressure flex justify-between">
-                            <div class="flex space-x-3 largeMob:max-tab:space-x-1.5 largeMob:max-tab:items-center">
-                                <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
+                        <div class="clwd-pressure relative grid grid-cols-[0.3fr_4fr] gap-3 w-full h-full items-center smallMob:max-largeMob:rounded-xl smallMob:max-largeMob:px-1 smallMob:max-largeMob:shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+                            <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256"
                                     xml:space="preserve">
                                     <g style="stroke: currentColor; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
@@ -461,15 +464,15 @@
                                             style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
                                             transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
                                     </g>
-                                </svg>
-                                <p>Pressure</p>
+                            </svg>
+                            <div class="largeMob:flex justify-between">
+                                <p class="flex self-start text-sm">Pressure</p>
+                                <p class="cw-Pressure flex smallMob:max-largeMob:font-semibold">1008 hPa</p>
                             </div>
-                            <p class="cw-Pressure">1008 hPa</p>
                         </div>
 
-                        <div class="clwd-visibility flex justify-between">
-                            <div class="flex space-x-3 largeMob:max-tab:space-x-1.5 largeMob:max-tab:items-center">
-                                <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
+                        <div class="clwd-visibility relative grid grid-cols-[0.3fr_4fr] gap-3 w-full h-full items-center smallMob:max-largeMob:rounded-xl smallMob:max-largeMob:px-1 smallMob:max-largeMob:shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+                            <svg class="w-6 h-6 text-(--weather-text-white) largeMob:max-tab:w-5 largeMob:max-tab:h-5" xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256"
                                     xml:space="preserve">
                                     <g style="stroke: currentColor; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
@@ -483,10 +486,11 @@
                                             style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;"
                                             transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
                                     </g>
-                                </svg>
-                                <p>Visibility</p>
+                            </svg>
+                            <div class="largeMob:flex justify-between">
+                                <p class="flex self-start text-sm">Visibility</p>
+                                <p class="cw-Visibility flex smallMob:max-largeMob:font-semibold">8.4 km</p>
                             </div>
-                            <p class="cw-Visibility">8.4 km</p>
                         </div>
                     </div>
                 </div>

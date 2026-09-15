@@ -441,6 +441,11 @@ function showSearchBar() {
 }
 showSearchBar();
 
+function hideSBar() {
+    document.querySelector(".hideSearchBar").addEventListener("click", hideSearchBar);
+}
+hideSBar();
+
 function hideSearchBar() {
     const searchBtn = document.querySelector(".searchBtn");
     const searchBar = document.querySelector(".searchBar");
