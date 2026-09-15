@@ -287,6 +287,7 @@ function getCityInput() {
         }
         console.log(cityName);
         await handleCitySearch(cityName);
+        hideSearchBar();
     });
 }
 
@@ -428,6 +429,27 @@ async function main() {
     getCityInput();
 }
 main();
+
+function showSearchBar() {
+    const searchBtn = document.querySelector(".searchBtn");
+    const searchBar = document.querySelector(".searchBar");
+
+    searchBtn.addEventListener("click", () => {
+        searchBar.classList.remove("smallMob:max-largeMob:w-0", "smallMob:max-largeMob:max-w-0", "smallMob:max-largeMob:opacity-0");
+        searchBar.classList.add("smallMob:max-largeMob:w-full", "smallMob:max-largeMob:max-w-full", "smallMob:max-largeMob:opacity-100");
+    });
+}
+showSearchBar();
+
+function hideSearchBar() {
+    const searchBtn = document.querySelector(".searchBtn");
+    const searchBar = document.querySelector(".searchBar");
+
+    if (innerWidth < 600) {
+            searchBar.classList.remove("smallMob:max-largeMob:w-full", "smallMob:max-largeMob:max-w-full", "smallMob:max-largeMob:opacity-100");
+            searchBar.classList.add("smallMob:max-largeMob:w-0", "smallMob:max-largeMob:max-w-0", "smallMob:max-largeMob:opacity-0");
+    }
+}
 
 
 
