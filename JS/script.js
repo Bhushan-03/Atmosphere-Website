@@ -451,8 +451,6 @@ function hideSearchBar() {
     }
 }
 
-
-
 function showSideBar() {
     const hamBtn = document.querySelector(".hamburgurBtn");
     const crossBtn = document.querySelector(".crossBtn");
