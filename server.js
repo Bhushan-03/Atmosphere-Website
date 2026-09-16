@@ -30,7 +30,7 @@ async function getCoordinates(city) {
 
 async function getWeather(lat,lon) {
     try {
-        let response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=apparent_temperature_max,weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max,daylight_duration&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,rain,weather_code,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,visibility,rain,pressure_msl,temperature_2m_max,temperature_2m_min,uv_index&forecast_days=14&timezone=auto`);
+        let response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=apparent_temperature_max,weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max,daylight_duration&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,rain,weather_code,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,visibility,rain,pressure_msl,temperature_2m_max,temperature_2m_min,uv_index&forecast_days=14&timezone=auto`);
         if(!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -207,6 +207,11 @@ function getHourlyTime(data) {
     return data.hourly.time.slice(chIndex, chIndex + 24).map(formatTime);
 }
 
+function getHourlyRawTime(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.time.slice(chIndex, chIndex + 24);
+}
+
 function getHourlyTemp(data) {
     const chIndex = getCurrentHourIndex(data);
     return data.hourly.temperature_2m.slice(chIndex, chIndex + 24);
@@ -215,6 +220,11 @@ function getHourlyTemp(data) {
 function getHourlyHumidity(data) {
     const chIndex = getCurrentHourIndex(data);
     return data.hourly.relative_humidity_2m.slice(chIndex, chIndex + 24);
+}
+
+function getHourlyP(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.precipitation.slice(chIndex, chIndex + 24);
 }
 
 function getHourlyRainP(data) {
@@ -242,6 +252,21 @@ function getHourlyWCTheme(data) {
     return data.hourly.weather_code.slice(chIndex, chIndex + 24).map(getWCTheme);
 }
 
+function getHourlyWindSpeed(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.wind_speed_10m.slice(chIndex, chIndex + 24);
+}
+
+function getHourlyVisibility(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.visibility.slice(chIndex, chIndex + 24);
+}
+
+function getHourlyWeatherCode(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.weather_code.slice(chIndex, chIndex + 24);
+}
+
 function getHourlyWindGusts(data) {
     const chIndex = getCurrentHourIndex(data);
     return data.hourly.wind_gusts_10m.slice(chIndex, chIndex + 24);
@@ -250,15 +275,20 @@ function getHourlyWindGusts(data) {
 async function getHourlyData(data) {
     const hourlyDates = await getHourlyDate(data);
     const hourlyTime = getHourlyTime(data);
+    const hourlyRawTime = getHourlyRawTime(data);
     const hourlyTemp = getHourlyTemp(data);
     const hourlyHumidity = getHourlyHumidity(data);
     const hourlyRain = getHourlyRainP(data);
     const hourlyR = getHourlyRain(data);
+    const hourlyP = getHourlyP(data);
     const hourlyApparentTemp = getHourlyApparentTemp(data);
     const hourlyWeatherCondition = getHourlyWeatherCondition(data);
     const hourlyWCName = getHourlyWCTheme(data);
+    const hourlyVisibility = getHourlyVisibility(data);
+    const hourlyWeatherCode = getHourlyWeatherCode(data);
+    const hourlyWindSpeed = getHourlyWindSpeed(data);
     const hourlyWindGusts = getHourlyWindGusts(data);
-    return {hourlyDates, hourlyTime, hourlyTemp, hourlyHumidity, hourlyR, hourlyRain, hourlyApparentTemp, hourlyWeatherCondition, hourlyWCName, hourlyWindGusts};
+    return {hourlyDates, hourlyTime, hourlyRawTime, hourlyTemp, hourlyHumidity, hourlyP, hourlyR, hourlyRain, hourlyApparentTemp, hourlyWeatherCondition, hourlyWCName, hourlyVisibility, hourlyWeatherCode, hourlyWindSpeed, hourlyWindGusts};
 }
 
 function getDailyDay(data) {

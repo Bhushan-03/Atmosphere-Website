@@ -1,6 +1,63 @@
 let currentDynamicTheme = "dynamicThemeSunny";
 let currentThemeMode = "Dynamic Mode";
 
+const WEATHER_ALERT_CONFIG = {
+    heavyRain: {
+        title: "Heavy Rain Expected",
+        icon: "Assets/Alerts SVG/rainy-alert.svg",
+        recommendation:
+            "Stay safe and avoid outdoor activities."
+    },
+    rain: {
+        title: "Rain Expected",
+        icon: "Assets/Alerts SVG/rainy-alert.svg",
+        recommendation:
+            "Consider carrying an umbrella."
+    },
+    thunderstorm: {
+        title: "Thunderstorm Expected",
+        icon: "Assets/Alerts SVG/thunderstorm-alert.svg",
+        recommendation:
+            "Stay indoors and avoid exposed areas."
+    },
+    strongWind: {
+        title: "Strong Winds Expected",
+        icon: "Assets/Alerts SVG/wind-alert.svg",
+        recommendation:
+            "Secure loose objects and take care outdoors."
+    },
+    poorVisibility: {
+        title: "Poor Visibility Expected",
+        icon: "Assets/Alerts SVG/fog-alert.svg",
+        recommendation:
+            "Take extra care while travelling."
+    },
+    extremeHeat: {
+        title: "High Temperature Expected",
+        icon: "Assets/Alerts SVG/heat-alert.svg",
+        recommendation:
+            "Stay hydrated and avoid prolonged exposure to heat."
+    },
+    extremeCold: {
+        title: "Low Temperature Expected",
+        icon: "Assets/Alerts SVG/cold-alert.svg",
+        recommendation:
+            "Dress appropriately for the cold."
+    },
+    snow: {
+        title: "Snow Expected",
+        icon: "Assets/Alerts SVG/snow-alert.svg",
+        recommendation:
+            "Take care when travelling on potentially slippery surfaces."
+    },
+    highUV: {
+        title: "High UV Expected",
+        icon: "Assets/Alerts SVG/uv-alert.svg",
+        recommendation:
+            "Use sun protection and limit prolonged sun exposure."
+    }
+};
+
 // function showSkeletonLoader(isLoading){
 //     document.querySelector(".mainScreen").classList.toggle("animate-skeleton-loading-dark", isLoading);
 //     document.querySelector(".weather-Main-Card").classList.toggle("animate-skeleton-loading", isLoading);
@@ -275,6 +332,7 @@ async function handleCitySearch(cityName) {
     setWAGData(data.Current);
     setUIData(data.Current);
     setHourlyData(data);
+    setWeatherAlert(data);
     setDailyFC(data);
     setTempBar();
     temo_ov_linegraph(data);
@@ -410,6 +468,305 @@ function setDailyFC(data) {
     }
 }
 
+function generateWeatherAlerts(data) {
+    const hourly = data.hourlyData;
+    const alerts = [];
+    for (let i = 0; i < hourly.hourlyRawTime.length; i++) {
+        const time = hourly.hourlyRawTime[i];
+        const rain = Number(hourly.hourlyR[i] || 0);
+        const precipitation = Number(hourly.hourlyP[i] || 0);
+        const rainProbability = Number(hourly.hourlyRain[i] || 0);
+        const temperature = Number(hourly.hourlyTemp[i]);
+        const apparentTemperature = Number(hourly.hourlyApparentTemp[i]);
+        const windSpeed = Number(hourly.hourlyWindSpeed[i] || 0);
+        const windGust = Number(hourly.hourlyWindGusts[i] || 0);
+        const visibility = Number(hourly.hourlyVisibility[i] || 0);
+        const weatherCode = Number(hourly.hourlyWeatherCode[i]);
+
+        // ==========================================
+        // 🌧 HEAVY RAIN
+        // ==========================================
+
+        if (
+            rain >= 5 &&
+            rainProbability >= 70
+        ) {
+            alerts.push({
+                type: "heavyRain",
+                index: i,
+                time,
+                value: rain
+            });
+        }
+
+        // ==========================================
+        // 🌧 RAIN
+        // ==========================================
+
+        else if (
+            rain > 0 &&
+            rainProbability >= 50
+        ) {
+            alerts.push({
+                type: "rain",
+                index: i,
+                time,
+                value: rain
+            });
+        }
+
+        // ==========================================
+        // ⛈ THUNDERSTORM
+        // ==========================================
+
+        if (
+            weatherCode >= 95 &&
+            weatherCode <= 99
+        ) {
+            alerts.push({
+                type: "thunderstorm",
+                index: i,
+                time,
+                value: weatherCode
+            });
+        }
+
+        // ==========================================
+        // 💨 STRONG WIND
+        // ==========================================
+
+        if (windGust >= 50) {
+            alerts.push({
+                type: "strongWind",
+                index: i,
+                time,
+                value: windGust
+            });
+        }
+
+        // ==========================================
+        // 🌫 POOR VISIBILITY
+        // ==========================================
+
+        if (
+            visibility > 0 &&
+            visibility <= 1000
+        ) {
+            alerts.push({
+                type: "poorVisibility",
+                index: i,
+                time,
+                value: visibility
+            });
+        }
+
+        // ==========================================
+        // 🔥 EXTREME HEAT
+        // ==========================================
+
+        if (
+            temperature >= 40 ||
+            apparentTemperature >= 45
+        ) {
+            alerts.push({
+                type: "extremeHeat",
+                index: i,
+                time,
+                value: temperature
+            });
+        }
+
+        // ==========================================
+        // 🥶 EXTREME COLD
+        // ==========================================
+
+        if (
+            temperature <= 5 ||
+            apparentTemperature <= 3
+        ) {
+            alerts.push({
+                type: "extremeCold",
+                index: i,
+                time,
+                value: temperature
+            });
+        }
+
+        // ==========================================
+        // ❄️ SNOW
+        // ==========================================
+
+        if (
+            weatherCode >= 71 &&
+            weatherCode <= 77
+        ) {
+            alerts.push({
+                type: "snow",
+                index: i,
+                time,
+                value: weatherCode
+            });
+        }
+    }
+
+    // ==========================================
+    // ☀️ UV
+    // ==========================================
+
+    const uvIndex = Number(data.Current.cwUVIndexMax);
+    if (uvIndex >= 8) {
+        alerts.push({
+            type: "highUV",
+            value: uvIndex
+        });
+    }
+    return alerts;
+}
+
+function groupWeatherAlerts(alerts) {
+    const groups = {};
+    alerts.forEach(alert => {
+        if (!groups[alert.type]) {
+            groups[alert.type] = [];
+        }
+        groups[alert.type].push(alert);
+    });
+    return groups;
+}
+
+function formatWeatherTime(time) {
+    return new Date(time).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
+}
+
+function getAlertTimeRange(alerts) {
+    if (!alerts.length) {
+        return null;
+    }
+    const first = formatWeatherTime(alerts[0].time);
+    return `${first}`;
+}
+
+function setWeatherAlert(data) {
+
+    const title = document.querySelector("#alert-title");
+    const description = document.querySelector("#alert-description");
+    const recommendation = document.querySelector("#alert-recommendation");
+    const icon = document.querySelector("#alert-icon");
+    const alertTime = document.querySelector("#alert-time");
+
+    if (
+        !title ||
+        !description ||
+        !recommendation ||
+        !icon
+    ) {
+        return;
+    }
+
+    const alerts = generateWeatherAlerts(data);
+
+
+    // ==================================
+    // NO ALERT
+    // ==================================
+
+    if (alerts.length === 0) {
+        title.innerText = "No Major Alerts";
+        description.innerText = "No significant weather conditions are expected.";
+        recommendation.innerText = "Have a great day.";
+        icon.src = "Assets/Alerts SVG/normal-weather.svg";
+
+        if (alertTime) {
+            alertTime.innerText = "";
+        }
+        return;
+    }
+
+    // ==================================
+    // GROUP ALERTS
+    // ==================================
+    const groups = groupWeatherAlerts(alerts);
+
+
+    // ==================================
+    // SELECT DISPLAY ALERT
+    // ==================================
+    const alertType = Object.keys(groups)[0];
+    const alertGroup = groups[alertType];
+    const config = WEATHER_ALERT_CONFIG[alertType];
+
+    if (!config) {
+        return;
+    }
+
+    // ==================================
+    // TIME
+    // ==================================
+
+    const timeRange = getAlertTimeRange(alertGroup);
+
+    // ==================================
+    // UPDATE UI
+    // ==================================
+
+    title.innerText = config.title;
+
+
+    description.innerText = getAlertDescription(
+            alertType,
+            alertGroup,
+            data
+        );
+
+    recommendation.innerText = config.recommendation;
+
+    icon.src = config.icon;
+
+    if (alertTime) {
+        alertTime.innerText = timeRange || "";
+    }
+}
+
+function getAlertDescription(type,alerts,data) {
+    const city = data.Current.CityName || "your area";
+    const range = getAlertTimeRange(alerts);
+
+    switch (type) {
+        case "heavyRain":
+            return `Heavy rain is expected in ${city} between ${range}.`;
+
+        case "rain":
+            return `Rain is expected in ${city} between ${range}.`;
+
+        case "thunderstorm":
+            return `Thunderstorms are expected in ${city} between ${range}.`;
+
+        case "strongWind":
+            return `Strong winds are expected in ${city} between ${range}.`;
+
+        case "poorVisibility":
+            return `Poor visibility is expected in ${city} around ${range}.`;
+
+        case "extremeHeat":
+            return `Very high temperatures are expected in ${city} around ${range}.`;
+
+        case "extremeCold":
+            return `Very low temperatures are expected in ${city} around ${range}.`;
+
+        case "snow":
+            return `Snow is expected in ${city} between ${range}.`;
+
+        case "highUV":
+            return `Very high UV levels are expected in ${city} today.`;
+
+        default:
+            return `Significant weather conditions are expected in ${city}.`;
+    }
+}
 
 async function main() {
 
@@ -429,6 +786,7 @@ async function main() {
     setUIData(data.Current);
     setHourlyData(data);
     setDailyFC(data);
+    setWeatherAlert(data);
     setTempBar();
     temo_ov_linegraph(data);
     windChart(data);

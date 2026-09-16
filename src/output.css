@@ -735,6 +735,9 @@
   .bg-\(--weather-navbar\) {
     background-color: var(--weather-navbar);
   }
+  .bg-\[\#FFF4D6\] {
+    background-color: #FFF4D6;
+  }
   .bg-\[currentColor\] {
     background-color: currentColor;
   }
