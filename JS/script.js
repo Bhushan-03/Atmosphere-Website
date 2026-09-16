@@ -225,6 +225,14 @@ function getUVILevel(uvIndex) {
     if (uvIndex >= 11) return "Extreme";
 }
 
+function getUVIRecommendation(uvIndex) {
+    if (uvIndex <= 2) return "Sun protection is generally not needed.";
+    if (uvIndex <= 5) return "Sun protection is recommended.";
+    if (uvIndex <= 7) return "Sun protection is recommended.";
+    if (uvIndex <= 10) return "Extra sun protection is recommended.";
+    if (uvIndex >= 11) return "Avoid sun exposure when possible. Extra sun protection is essential.";
+}
+
 
 function setUIData(data) {
     const cw_uvIndex = document.querySelector(".cw-uvIndex");
@@ -237,11 +245,13 @@ function setUIData(data) {
     const cw_wSpeed = document.querySelector(".cw-wSpeed");
     const cw_wDirection = document.querySelector(".cw-wDirection");
     const cw_wGusts = document.querySelector(".cw-wGusts");
+    const uvi_recommendation = document.querySelector(".uvi-suggestion");
     setGauge(data.cwUVIndex);
     setWindDirection(data.cwWindDirection);
     setAQIData(data);
     updateSunPosition(data.cwSunrise, data.cwSunset);
     cw_uvIndex.innerText = `${data.cwUVIndex}`;
+    uvi_recommendation.innerText = `${getUVIRecommendation(data.cwUVIndex)}`;
     cw_uvLevel.innerText = `${getUVILevel(data.cwUVIndex)}`;
     cw_uvIndex_max.innerText = `${data.cwUVIndexMax}`;
     cw_uvimLevel.innerText = `${getUVILevel(data.cwUVIndexMax)}`;
@@ -393,7 +403,7 @@ function setDailyFC(data) {
                 <p class="p-1 max-temp w-[29.5%]">${data.dailyData.dailyMaxFeelsLike[i]}°</p>
             </div>
             <div class="relative grid grid-cols-2 w-full items-center">
-                <svg class="w-4 h-4 flex justify-self-center" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve"> <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><path d="M 45 90 c -18.12 0 -32.833 -14.667 -33.494 -33.391 l -0.002 -0.105 c 0 -15.42 10.55 -27.84 19.027 -37.82 c 4.985 -5.87 9.694 -11.414 11.065 -16.127 C 42.041 1.027 43.409 0 45 0 s 2.959 1.027 3.403 2.556 l 0 0 c 1.371 4.714 6.08 10.258 11.065 16.127 c 8.477 9.98 19.026 22.4 19.026 37.82 l -0.002 0.105 C 77.833 75.333 63.121 90 45 90 z M 17.504 56.451 C 18.077 71.903 30.145 84 45 84 c 14.856 0 26.923 -12.097 27.496 -27.549 c -0.025 -13.192 -9.361 -24.184 -17.6 -33.883 C 50.951 17.924 47.383 13.723 45 9.585 c -2.383 4.138 -5.951 8.339 -9.896 12.983 C 26.866 32.267 17.529 43.259 17.504 56.451 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,183,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /></g></svg>
+                <svg class="w-4 h-4 flex justify-self-center smallMob:max-largeMob:w-3 smallMob:max-largeMob:h-3 smallMob:max-largeMob:justify-self-end" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve"> <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"><path d="M 45 90 c -18.12 0 -32.833 -14.667 -33.494 -33.391 l -0.002 -0.105 c 0 -15.42 10.55 -27.84 19.027 -37.82 c 4.985 -5.87 9.694 -11.414 11.065 -16.127 C 42.041 1.027 43.409 0 45 0 s 2.959 1.027 3.403 2.556 l 0 0 c 1.371 4.714 6.08 10.258 11.065 16.127 c 8.477 9.98 19.026 22.4 19.026 37.82 l -0.002 0.105 C 77.833 75.333 63.121 90 45 90 z M 17.504 56.451 C 18.077 71.903 30.145 84 45 84 c 14.856 0 26.923 -12.097 27.496 -27.549 c -0.025 -13.192 -9.361 -24.184 -17.6 -33.883 C 50.951 17.924 47.383 13.723 45 9.585 c -2.383 4.138 -5.951 8.339 -9.896 12.983 C 26.866 32.267 17.529 43.259 17.504 56.451 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,183,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" /></g></svg>
                 <p class="">${data.dailyData.dailyPrepProbability[i]}%</p>
             </div>
         </div>`;

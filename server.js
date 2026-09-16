@@ -222,6 +222,11 @@ function getHourlyRainP(data) {
     return data.hourly.precipitation_probability.slice(chIndex, chIndex + 24);
 }
 
+function getHourlyRain(data) {
+    const chIndex = getCurrentHourIndex(data);
+    return data.hourly.rain.slice(chIndex, chIndex + 24);
+}
+
 function getHourlyApparentTemp(data) {
     const chIndex = getCurrentHourIndex(data);
     return data.hourly.apparent_temperature.slice(chIndex, chIndex + 24);
@@ -248,11 +253,12 @@ async function getHourlyData(data) {
     const hourlyTemp = getHourlyTemp(data);
     const hourlyHumidity = getHourlyHumidity(data);
     const hourlyRain = getHourlyRainP(data);
+    const hourlyR = getHourlyRain(data);
     const hourlyApparentTemp = getHourlyApparentTemp(data);
     const hourlyWeatherCondition = getHourlyWeatherCondition(data);
     const hourlyWCName = getHourlyWCTheme(data);
     const hourlyWindGusts = getHourlyWindGusts(data);
-    return {hourlyDates, hourlyTime, hourlyTemp, hourlyHumidity, hourlyRain, hourlyApparentTemp, hourlyWeatherCondition, hourlyWCName, hourlyWindGusts};
+    return {hourlyDates, hourlyTime, hourlyTemp, hourlyHumidity, hourlyR, hourlyRain, hourlyApparentTemp, hourlyWeatherCondition, hourlyWCName, hourlyWindGusts};
 }
 
 function getDailyDay(data) {

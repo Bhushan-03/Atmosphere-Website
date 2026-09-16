@@ -1141,17 +1141,35 @@
       .smallMob\:max-largeMob\:top-3 {
         top: calc(var(--spacing) * 3);
       }
+      .smallMob\:max-largeMob\:-right-2 {
+        right: calc(var(--spacing) * -2);
+      }
       .smallMob\:max-largeMob\:right-0 {
         right: 0px;
+      }
+      .smallMob\:max-largeMob\:-bottom-24 {
+        bottom: calc(var(--spacing) * -24);
       }
       .smallMob\:max-largeMob\:-left-50 {
         left: calc(var(--spacing) * -50);
       }
+      .smallMob\:max-largeMob\:left-0 {
+        left: 0px;
+      }
       .smallMob\:max-largeMob\:z-10 {
         z-index: 10;
       }
+      .smallMob\:max-largeMob\:mt-2 {
+        margin-top: calc(var(--spacing) * 2);
+      }
       .smallMob\:max-largeMob\:mt-3 {
         margin-top: calc(var(--spacing) * 3);
+      }
+      .smallMob\:max-largeMob\:mt-5 {
+        margin-top: calc(var(--spacing) * 5);
+      }
+      .smallMob\:max-largeMob\:mt-8 {
+        margin-top: calc(var(--spacing) * 8);
       }
       .smallMob\:max-largeMob\:mr-auto {
         margin-right: auto;
@@ -1174,11 +1192,17 @@
       .smallMob\:max-largeMob\:hidden {
         display: none;
       }
+      .smallMob\:max-largeMob\:h-3 {
+        height: calc(var(--spacing) * 3);
+      }
       .smallMob\:max-largeMob\:h-6 {
         height: calc(var(--spacing) * 6);
       }
       .smallMob\:max-largeMob\:h-9 {
         height: calc(var(--spacing) * 9);
+      }
+      .smallMob\:max-largeMob\:h-45 {
+        height: calc(var(--spacing) * 45);
       }
       .smallMob\:max-largeMob\:h-\[98\%\] {
         height: 98%;
@@ -1189,11 +1213,17 @@
       .smallMob\:max-largeMob\:w-0 {
         width: 0px;
       }
+      .smallMob\:max-largeMob\:w-3 {
+        width: calc(var(--spacing) * 3);
+      }
       .smallMob\:max-largeMob\:w-6 {
         width: calc(var(--spacing) * 6);
       }
       .smallMob\:max-largeMob\:w-9 {
         width: calc(var(--spacing) * 9);
+      }
+      .smallMob\:max-largeMob\:w-45 {
+        width: calc(var(--spacing) * 45);
       }
       .smallMob\:max-largeMob\:w-\[97\%\] {
         width: 97%;
@@ -1226,8 +1256,14 @@
       .smallMob\:max-largeMob\:grid-rows-2 {
         grid-template-rows: repeat(2, minmax(0, 1fr));
       }
+      .smallMob\:max-largeMob\:grid-rows-\[1fr_1\.5fr\] {
+        grid-template-rows: 1fr 1.5fr;
+      }
       .smallMob\:max-largeMob\:justify-around {
         justify-content: space-around;
+      }
+      .smallMob\:max-largeMob\:gap-0 {
+        gap: 0px;
       }
       .smallMob\:max-largeMob\:gap-2 {
         gap: calc(var(--spacing) * 2);
@@ -1251,6 +1287,12 @@
         --tw-space-x-reverse: 0;
         margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
         margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+      }
+      .smallMob\:max-largeMob\:justify-self-center {
+        justify-self: center;
+      }
+      .smallMob\:max-largeMob\:justify-self-end {
+        justify-self: flex-end;
       }
       .smallMob\:max-largeMob\:overflow-hidden {
         overflow: hidden;
@@ -1279,6 +1321,9 @@
       .smallMob\:max-largeMob\:py-2 {
         padding-block: calc(var(--spacing) * 2);
       }
+      .smallMob\:max-largeMob\:pb-0 {
+        padding-bottom: 0px;
+      }
       .smallMob\:max-largeMob\:pl-3 {
         padding-left: calc(var(--spacing) * 3);
       }
@@ -1286,9 +1331,20 @@
         font-size: var(--text-6xl);
         line-height: var(--tw-leading, var(--text-6xl--line-height));
       }
+      .smallMob\:max-largeMob\:text-lg {
+        font-size: var(--text-lg);
+        line-height: var(--tw-leading, var(--text-lg--line-height));
+      }
+      .smallMob\:max-largeMob\:text-sm {
+        font-size: var(--text-sm);
+        line-height: var(--tw-leading, var(--text-sm--line-height));
+      }
       .smallMob\:max-largeMob\:text-xl {
         font-size: var(--text-xl);
         line-height: var(--tw-leading, var(--text-xl--line-height));
+      }
+      .smallMob\:max-largeMob\:text-\[12px\] {
+        font-size: 12px;
       }
       .smallMob\:max-largeMob\:font-semibold {
         --tw-font-weight: var(--font-weight-semibold);
