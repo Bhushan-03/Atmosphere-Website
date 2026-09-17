@@ -117,9 +117,9 @@
 
             <div class="header relative flex w-auto h-[8%] justify-between items-center mx-3 smallMob:max-largeMob:py-2">
 
-                <div class="hidden tab:max-lap:flex tab:max-lap:space-x-2 largeMob:max-tab:flex largeMob:max-tab:gap-2 smallMob:max-largeMob:flex smallMob:max-largeMob:gap-2">
-                    <svg class="hamburgurBtn w-7 h-7 text-(--weather-main-text)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 18H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 12L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                    <p class="text-2xl text-(--weather-main-text) font-bold smallMob:max-largeMob:text-xl">Atmosphere</p>
+                <div class="hidden tab:max-lap:flex tab:max-lap:space-x-2 largeMob:max-tab:flex largeMob:max-tab:gap-2 smallMob:max-largeMob:flex smallMob:max-largeMob:gap-2 smallMob:max-mob:gap-1 smallMob:max-mob:items-center">
+                    <svg class="hamburgurBtn w-7 h-7 text-(--weather-main-text) smallMob:max-mob:w-6 smallMob:max-mob:h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 18H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 12L16 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 6L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <p class="text-2xl text-(--weather-main-text) font-bold smallMob:max-largeMob:text-xl smallMob:max-mob:text-lg">Atmosphere</p>
                 </div>
 
                 <div class="searchBar smallMob:max-largeMob:absolute smallMob:max-largeMob:w-0 smallMob:max-largeMob:max-w-0 smallMob:max-largeMob:overflow-hidden smallMob:max-largeMob:top-1 smallMob:max-largeMob:opacity-0 smallMob:max-largeMob:z-10 smallMob:max-largeMob:bg-[rgba(255, 255, 255, 0.2)] smallMob:largeMob:backdrop-blur-lg w-2/4 rounded-2xl relative cursor-pointer tab:max-lap:w-1/3 largeMob:max-tab:w-1/3 transition-all duration-500 ease-in-out">
@@ -137,14 +137,14 @@
 
                 </div>
 
-                <div class="w-auto relative flex items-center space-x-4 smallMob:max-largeMob:space-x-2">
+                <div class="w-auto relative flex items-center space-x-4 smallMob:max-largeMob:space-x-2 smallMob:max-mob:space-x-1">
 
                     <div class="temperature-option relative w-fit shadow rounded-4xl flex tab:max-lap:hidden largeMob:max-tab:hidden smallMob:max-largeMob:hidden">
                         <input type="checkbox"
                             class="min-w-20 min-h-11 relative outline-[none] shadow-[inset_0_0_5px_rgba(0,0,0,0.2)] appearance-none bg-(--weather-cards) rounded-4xl before:content-['°F'] before:text-xl before:font-bold before:flex before:w-full before:h-full before:left-[55%] checked:before:content-['°C'] checked:before:left-1.5 before:absolute before:items-center after:content-['°C'] after:font-bold after:text-(--weather-cards) after:text-xl after:flex after:items-center after:justify-center after:absolute after:w-9 after:h-9 after:rounded-full after:bg-(--weather-active-icons) after:top-[10%] after:left-1 after:shadow-[0_2px_5px_rgba(0,0,0,0.2)] checked:after:content-['°F'] transition-[0.5s] after:transition-[0.5s] checked:after:translate-x-full cursor-pointer">
                     </div>
 
-                    <button class="searchBtn largeMob:hidden items-center rounded-full p-1 bg-(--weather-cards)">
+                    <button class="searchBtn largeMob:hidden items-center rounded-full p-1 bg-(--weather-cards) smallMob:max-mob:p-0">
                         <svg class="w-7 h-7 relative text-(--weather-icons)" viewBox="0 -0.5 25 25"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd"
@@ -319,7 +319,7 @@
 
                         <div class="clocation relative flex items-center text-(--weather-text-white) space-x-2">
                             <!-- Showing Current Location Name (Ex: Mumbai, Maharashtra) -->
-                            <p class="cwCityName text-2xl largeMob:max-tab:text-xl font-semibold">Mumbai, Maharashtra</p>
+                            <p class="cwCityName text-2xl largeMob:max-tab:text-xl font-semibold text-(--weather-main-text)">Mumbai, Maharashtra</p>
                             <svg class="cwLocationIcon hidden w-5.5 h-5.5 text-(--weather-text-white)" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256"
                                 xml:space="preserve">
@@ -337,7 +337,7 @@
                             </svg>
                         </div>
 
-                        <div class="cl-dt flex space-x-2 text-(--weather-text-white) largeMob:max-tab:text-sm">
+                        <div class="cl-dt flex space-x-2 largeMob:max-tab:text-sm smallMob:max-largeMob:text-sm text-(--weather-normal-text)">
                             <p class="cwl-dayName">Thursday</p>
                             <p>•</p>
                             <p class="cwl-date">13 Aug 2026</p>
@@ -345,7 +345,7 @@
                             <p class="cwl-time">1:30 PM</p>
                         </div>
 
-                        <div class="clw mt-5 text-(--weather-text-white)">
+                        <div class="clw mt-5 text-(--weather-main-text)">
                             <!-- <p class="currentWeatherCondition">Partly Cloudy</p> -->
                             <p class="currentWeatherCondition">Sunny</p>
                             <p class="currentTemp text-8xl font-bold mt-2 largeMob:max-tab:text-6xl smallMob:max-largeMob:text-6xl">25.2°</p>
@@ -1054,20 +1054,20 @@
                     </div>
                 </div>
 
-                <div class="weather-alert-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-[#FFF4D6] box-border min-h-0 flex flex-col lap:max-desk:h-full">
-                    <p class="text-(--weather-main-text) font-semibold">WEATHER ALERTS</p>
+                <div class="weather-alert-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col lap:max-desk:h-full">
+                    <p class="text-(--weather-alert-text) font-semibold">WEATHER ALERTS</p>
                     <div class="relative flex items-center space-x-2 mt-[5%]">
                         <div class="alert-icon">
                             <img id="alert-icon" class="w-30 h-30" src="Assets/Alerts SVG/rainy-alert.svg" alt="">
                         </div>
-                        <p id="alert-title" class="text-xl font-semibold">Heavy Rain Expected</p>
+                        <p id="alert-title" class="text-xl font-semibold text-(--weather-alert-text)">Heavy Rain Expected</p>
                     </div>
                     <div class="relative p-3 flex justify-self-center ml-auto mr-auto box-border">
-                        <p id="alert-description">Heavy rain is expected in Mumbai between 2:00 PM - 4:00 PM today.</p>
+                        <p id="alert-description" class="text-(--weather-normal-text)">Heavy rain is expected in Mumbai between 2:00 PM - 4:00 PM today.</p>
                     </div>
                     <div class="relative flex justify-between mt-auto mb-5 lap:max-desk:flex-col lap:max-desk:items-center">
-                        <p id="alert-recommendation">Stay safe and avoid outdoor activities.</p>
-                        <p id="alert-created">2 hours ago</p>
+                        <p id="alert-recommendation" class="text-(--weather-main-text)">Stay safe and avoid outdoor activities.</p>
+                        <p id="alert-created" class="text-(--weather-main-text)">2 hours ago</p>
                     </div>
                 </div>
 
