@@ -447,6 +447,9 @@
   .w-2\/4 {
     width: calc(2 / 4 * 100%);
   }
+  .w-3\/4 {
+    width: calc(3 / 4 * 100%);
+  }
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
@@ -2109,6 +2112,9 @@
   --weather-alert-border: #514B32;
   --weather-alert-text: #FDE68A;
   --weather-alert-icon: #FBBF24;
+}
+.active-Btn {
+  background: var(--weather-active-icons);
 }
 .select-clicked {
   border: 2px #26489a solid;

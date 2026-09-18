@@ -768,12 +768,34 @@ function getAlertDescription(type,alerts,data) {
     }
 }
 
+function sideBarOptions() {
+    const sideBarBtns = document.querySelectorAll(".sideBarBtn");
+    sideBarBtns.forEach(btn => {
+        btn.addEventListener("click", ()=> {
+            sideBarBtns.forEach(button => button.classList.remove("active-Btn"));
+            btn.classList.add("active-Btn");
+        });
+    });
+}
+
+function locationOptions() {
+    const locationOptions = document.querySelectorAll(".locationsOption");
+    locationOptions.forEach(btn => {
+        btn.addEventListener("click", ()=> {
+            locationOptions.forEach(button => button.classList.remove("active-Btn"));
+            btn.classList.add("active-Btn");
+            handleCitySearch(btn.innerText);
+        });
+    });
+}
+
 async function main() {
-
+    
+    
     // showSkeletonLoader(true);
-
+    
     const data = await getWeatherData("Mumbai");
-
+    
     console.log(data.dailyData);
     if (!data) {
         return;
@@ -795,6 +817,8 @@ async function main() {
     currentThemeMode = "Dynamic Mode";
     weatherOptions(data.Current.cWeatherConditionTheme);
     getCityInput();
+    sideBarOptions();
+    locationOptions();
 }
 main();
 
