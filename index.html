@@ -13,6 +13,15 @@
 
     <div class="screenContainer relative w-screen h-screen bg-(--weather-bg) grid grid-cols-[20%_80%] lap:max-desk:grid-cols-[20%_80%] desk:max-largDesk:grid-cols-[22%_78%] tab:max-lap:grid-cols-1 largeMob:max-tab:grid-cols-1 smallMob:max-largeMob:grid-cols-1 transition-all duration-300 ease-in-out">
 
+        <div class="updateIndicator absolute overflow-hidden opacity-0 w-0 max-w-0 top-5 drop-shadow-[0_0_10px_currentColor] shadow-[0_0_10px_currentColor] left-1/2 -z-10 gap-2 px-5 py-6 rounded-xl h-10 flex items-center justify-center bg-(--weather-bg) border border-(--weather-active-icons) transition-all duration-200 ease-in-out">
+            <div class="relative h-7 w-7">
+                <div class="absolute inset-0 rounded-full border-4 border-slate-200"></div>
+                <div class="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-indigo-500"></div>
+                <div class="absolute inset-2 animate-pulse rounded-full bg-indigo-500/10"></div>
+            </div>
+            <p class="font-semibold text-(--weather-main-text)">Loading City Data</p>
+        </div>
+
         <div class="sideBar relative w-auto h-[95%] self-center flex flex-col rounded-2xl bg-(--weather-navbar) shadow p-3 ml-3 overflow-y-auto scrollbar-none tab:max-lap:absolute tab:max-lap:h-[98%] tab:max-lap:-left-50 tab:max-lap:opacity-0 tab:max-lap:z-10 largeMob:max-tab:absolute largeMob:max-tab:h-[98%] largeMob:max-tab:-left-50 largeMob:max-tab:opacity-0 largeMob:max-tab:z-10 smallMob:max-largeMob:absolute smallMob:max-largeMob:h-[98%] smallMob:max-largeMob:-left-50 smallMob:max-largeMob:opacity-0 smallMob:max-largeMob:z-10 transition-all duration-300 ease-in-out">
 
             <div class="logo flex w-full justify-center items-center space-x-1 tab:max-lap:justify-start largeMob:max-tab:justify-start">
@@ -52,24 +61,24 @@
                 <p class="font-semibold text-(--weather-main-text)">LOCATIONS</p>
 
                 <ul class="flex flex-col space-y-2 mt-4">
-                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 active-Btn transition-all duration-300 ease-in-out">
+                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 active-Btn transition-all duration-300 ease-in-out cursor-pointer">
                             <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                             <p class="text-(--weather-main-text)">Mumbai</p>
                         </button></li>
-                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out">
+                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out cursor-pointer">
                             <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                             <p class="text-(--weather-main-text)">Pune</p>
                         </button></li>
-                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out">
+                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out cursor-pointer">
                         <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                             <p class="text-(--weather-main-text)">Bengaluru</p>
                         </button></li>
-                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out">
+                    <li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out cursor-pointer">
                         <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                             <p class="text-(--weather-main-text)">Delhi</p>
                         </button></li>
                 </ul>
-                <button class="flex items-center space-x-2.5 mt-5">
+                <button class="flex items-center space-x-2.5 mt-5 cursor-pointer">
                     <svg class="w-4 h-4 text-(--weather-main-text)" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 12H20M12 4V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -81,11 +90,9 @@
 
             <hr class="text-slate-300 border mt-5">
 
-            <!-- <div class="h-[20%]"></div> -->
-
             <div class="about-option relative mt-auto">
                 <button
-                    class="space-x-2 w-full px-2.5 py-3 rounded-xl hover:bg-(--weather-hover-btn) flex relative">
+                    class="space-x-2 w-full px-2.5 py-3 rounded-xl hover:bg-(--weather-hover-btn) flex relative cursor-pointer">
                     <svg class="w-6 h-6 text-(--weather-main-text)" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="about-white" fill="currentColor" transform="translate(42.666667, 42.666667)"><path stroke="currentColor" d="M213.333333,3.55271368e-14 C95.51296,3.55271368e-14 3.55271368e-14,95.51168 3.55271368e-14,213.333333 C3.55271368e-14,331.153707 95.51296,426.666667 213.333333,426.666667 C331.154987,426.666667 426.666667,331.153707 426.666667,213.333333 C426.666667,95.51168 331.154987,3.55271368e-14 213.333333,3.55271368e-14 Z M213.333333,384 C119.227947,384 42.6666667,307.43872 42.6666667,213.333333 C42.6666667,119.227947 119.227947,42.6666667 213.333333,42.6666667 C307.44,42.6666667 384,119.227947 384,213.333333 C384,307.43872 307.44,384 213.333333,384 Z M240.04672,128 C240.04672,143.46752 228.785067,154.666667 213.55008,154.666667 C197.698773,154.666667 186.713387,143.46752 186.713387,127.704107 C186.713387,112.5536 197.99616,101.333333 213.55008,101.333333 C228.785067,101.333333 240.04672,112.5536 240.04672,128 Z M192.04672,192 L234.713387,192 L234.713387,320 L192.04672,320 L192.04672,192 Z" id="Shape"></path> </g> </g></svg>
                     <p class="text-(--weather-main-text)">About</p>
                 </button>

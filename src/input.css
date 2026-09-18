@@ -290,7 +290,7 @@
   --weather-border: #28384D;
   --weather-primary-btn: #60A5FA;
   --weather-hover-btn: #93C5FD;
-   --weather-icons: #172033;
+  --weather-icons: #172033;
   --weather-active-icons: #60A5FA;
   --weather-links: #2563EB;
 
@@ -324,23 +324,77 @@
 
 
 @theme {
-  --animate-skeleton-loading: skeleton-loading  1s linear infinite alternate;
-  --animate-skeleton-loading-dark: skeleton-loading-dark  1s linear infinite alternate;
+  --animate-skeleton-loading: skeleton-loading 1s linear infinite alternate;
+  --animate-skeleton-loading-dark: skeleton-loading-dark 1s linear infinite alternate;
 
   @keyframes skeleton-loading {
     0% {
-      background-color: hsl(200,20%,80%);
+      background-color: hsl(200, 20%, 80%);
     }
+
     100% {
-      background-color: hsl(200,20%,95%);
+      background-color: hsl(200, 20%, 95%);
     }
   }
+
   @keyframes skeleton-loading-dark {
     0% {
-      background-color: hsl(200,20%,85%);
+      background-color: hsl(200, 20%, 85%);
     }
+
     100% {
-      background-color: hsl(200,20%,100%);
+      background-color: hsl(200, 20%, 100%);
     }
+  }
+}
+
+
+@theme {
+  --animate-rotate: rotate 2s linear infinite;
+  --animate-dash: dash 1.5s ease-in-out infinite;
+  --animate-loader-color: loader-color 6s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes loader-color {
+
+  0%,
+  100% {
+    stroke: #d62d20;
+  }
+
+  40% {
+    stroke: #0057e7;
+  }
+
+  66% {
+    stroke: #008744;
+  }
+
+  80%,
+  90% {
+    stroke: #ffa700;
   }
 }

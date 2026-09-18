@@ -321,6 +321,7 @@ function setUIData(data) {
 }
 
 async function handleCitySearch(cityName) {
+    showUpdatingLoader();
     const data = await getWeatherData(cityName);
     if (!data) {
         return;
@@ -337,6 +338,7 @@ async function handleCitySearch(cityName) {
     setTempBar();
     temo_ov_linegraph(data);
     windChart(data);
+    hideUpdatingLoader();
     return data;
 }
 
@@ -354,6 +356,7 @@ function getCityInput() {
             return;
         }
         console.log(cityName);
+        checkDefaultCity(cityName);
         await handleCitySearch(cityName);
         hideSearchBar();
     });
@@ -789,12 +792,38 @@ function locationOptions() {
     });
 }
 
+function getDefaultCity() {
+    const locationOptions = document.querySelectorAll(".locationsOption");
+    return locationOptions[0].innerText;
+}
+
+function showUpdatingLoader() {
+    const UpdateLoader = document.querySelector(".updateIndicator");
+    UpdateLoader.classList.remove("w-0", "max-w-0", "opacity-0", "-z-10");
+    UpdateLoader.classList.add("opacity-100", "z-10");
+}
+
+function hideUpdatingLoader() {
+    const UpdateLoader = document.querySelector(".updateIndicator");
+    UpdateLoader.classList.remove("opacity-100", "z-10");
+    UpdateLoader.classList.add("w-0", "max-w-0", "opacity-0", "-z-10");
+}
+
+function checkDefaultCity(cityName) {
+    const locationOptions = document.querySelectorAll(".locationsOption");
+    locationOptions.forEach(btn => {
+        if (btn.innerText.toLowerCase() != cityName.toLowerCase()) {
+            btn.classList.remove("active-Btn");
+        }
+    });
+}
+
 async function main() {
     
     
     // showSkeletonLoader(true);
-    
-    const data = await getWeatherData("Mumbai");
+    const defaultCityName = getDefaultCity();
+    const data = await getWeatherData(defaultCityName);
     
     console.log(data.dailyData);
     if (!data) {
