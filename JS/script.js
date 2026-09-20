@@ -851,6 +851,13 @@ async function main() {
 }
 main();
 
+function sBForecastBtn() {
+    const ForecastBtn = document.querySelector(".ForecastBtn");
+    ForecastBtn.addEventListener("click", ()=> {
+        
+    });
+}
+
 function showSearchBar() {
     const searchBtn = document.querySelector(".searchBtn");
     const searchBar = document.querySelector(".searchBar");
@@ -1199,6 +1206,18 @@ function updateSunPosition(sunriseText, sunsetText) {
     // Move existing sun
     document.getElementById("sunIcon").setAttribute("transform",`translate(${x} ${y}) scale(0.12) translate(-256 -256)`);
 }
+
+function navigateForecastBtn() {
+    const weatherBtn = document.querySelector(".weatherBtn");
+    const ForecastBtn = document.querySelector(".ForecastBtn");
+    weatherBtn.addEventListener("click", ()=> {
+        location.href = "index.html";
+    });
+    ForecastBtn.addEventListener("click", ()=> {
+        location.href = "forecast.html";
+    });
+}
+navigateForecastBtn();
 
 
 
