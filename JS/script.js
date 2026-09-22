@@ -820,6 +820,9 @@ function checkDefaultCity(cityName) {
 
 async function main() {
     
+    const locationsJson = await fetch("./cities.json");
+    const locdata = await locationsJson.json();
+    console.log(locdata);
     
     // showSkeletonLoader(true);
     const defaultCityName = getDefaultCity();
@@ -1206,6 +1209,54 @@ function updateSunPosition(sunriseText, sunsetText) {
     // Move existing sun
     document.getElementById("sunIcon").setAttribute("transform",`translate(${x} ${y}) scale(0.12) translate(-256 -256)`);
 }
+
+function storeLocations() {
+    let locations = ["Mumbai","Pune","Bengaluru","Delhi"];
+    localStorage.setItem("locations", JSON.stringify(locations));
+}
+storeLocations();
+
+function getStoredLocations() {
+    let locations = JSON.parse(localStorage.getItem("locations"));
+    return locations;
+}
+getStoredLocations();
+
+function setStoredLocations() {
+    const savedLocations = document.querySelector(".savedLocations");
+    let locations = getStoredLocations();
+    savedLocations.innerHTML = "";
+    locations.forEach(location => {
+        savedLocations.innerHTML = savedLocations.innerHTML +
+        `<li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-full transition-all duration-300 ease-in-out cursor-pointer pl-5 border border-(--weather-active-icons)">
+            <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
+            <p class="text-(--weather-main-text)">${location}</p>
+            <svg class="deleteLocationBtn w-10 h-10 text-(--weather-main-text) absolute right-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M12 12L16 16M8 8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button></li>`
+    });
+}
+
+setStoredLocations();
+
+function showAddLocationBox() {
+    const addLocBtn = document.querySelector(".addLocBtn");
+    const addLocationBox = document.querySelector(".addLocationBox");
+    addLocBtn.addEventListener("click", ()=> {
+        addLocationBox.classList.remove("w-0","-z-10","opacity-0","h-0");
+        addLocationBox.classList.add("w-1/3","z-10","opacity-100","h-2/3");
+    });
+}
+showAddLocationBox();
+
+function hideAddLocationBox() {
+    const hideLocBtn = document.querySelector(".hideALBtn");
+    const addLocationBox = document.querySelector(".addLocationBox");
+    hideLocBtn.addEventListener("click", ()=> {
+        addLocationBox.classList.remove("w-1/3","z-10","opacity-100","h-2/3");
+        addLocationBox.classList.add("w-0","-z-10","opacity-0","h-0");
+    });
+}
+hideAddLocationBox();
 
 
 

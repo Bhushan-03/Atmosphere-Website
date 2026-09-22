@@ -22,19 +22,29 @@
             <p class="font-semibold text-(--weather-main-text)">Loading City Data</p>
         </div>
 
-        <div class="absolute z-10 w-1/3 h-2/3 border left-1/3 mt-[8%] rounded-2xl bg-(--weather-bg) border-(--weather-active-icons) shadow-2xl px-4 py-2 box-border shrink-0">
-            <svg class="crossBtn w-10 h-10 text-(--weather-main-text) absolute right-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M12 12L16 16M8 8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="addLocationBox absolute -z-10 w-0 h-0 opacity-0 border left-[35%] mt-[6%] rounded-2xl bg-(--weather-bg) border-(--weather-active-icons) shadow-2xl px-4 py-2 box-border shrink-0 transition-all duration-300 ease-in-out">
+            <svg class="hideALBtn w-10 h-10 text-(--weather-main-text) absolute right-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M12 12L16 16M8 8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <div class="flex gap-3">
-                <svg class="w-7 h-7 text-(--weather-main-text) mt-1" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
+                <svg class="w-7 h-7 text-(--weather-main-text) mt-1 cursor-pointer" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                 <div>
                     <p class="font-semibold text-(--weather-main-text) text-3xl">Add Location</p>
-                    <p>Add Location for Easy Access</p>
+                    <p class="text-(--weather-normal-text)">Add Location for Easy Access</p>
                 </div>
             </div>
-            <div class="flex flex-col items-center space-y-5 mt-5">
-                <div class="border w-full rounded-full">
-                    <input type="text" placeholder="Enter Location Name" class="w-full rounded-full p-2 pl-4">
+            <div class="flex flex-col items-center space-y-5 mt-5 h-[80%]">
+                <div class="w-full rounded-full border border-(--weather-hover-btn) cursor-pointer">
+                    <input type="text" placeholder="Enter Location Name" class="w-full addLocInputBox rounded-full p-2 pl-4 text-(--weather-normal-text)">
                 </div>
+                <ul class="savedLocations flex flex-col space-y-2 mt-2 w-full h-full overflow-y-scroll scrollbar-none">
+                </ul>
+                <button class="addLocationBtn bg-(--weather-primary-btn) flex items-center gap-2 rounded-full p-2 cursor-pointer">
+                    <svg class="w-4 h-4 text-(--weather-main-text)" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 12H20M12 4V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <p class="text-(--weather-main-text) font-semibold">Add Location</p>
+                </button>
             </div>
         </div>
 
@@ -101,7 +111,7 @@
                         <path d="M4 12H20M12 4V20" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <p class="text-(--weather-main-text)">Add Location</p>
+                    <p class="text-(--weather-main-text) addLocBtn">Add Location</p>
                 </button>
             </div>
 
