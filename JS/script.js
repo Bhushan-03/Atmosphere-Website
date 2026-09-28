@@ -1315,8 +1315,8 @@ function showAddLocationBox() {
     const addLocBtn = document.querySelector(".addLocBtn");
     const addLocationBox = document.querySelector(".addLocationBox");
     addLocBtn.addEventListener("click", ()=> {
-        addLocationBox.classList.remove("w-0","-z-10","opacity-0","h-0");
-        addLocationBox.classList.add("w-1/3","z-10","opacity-100","h-2/3");
+        addLocationBox.classList.remove("-z-10","opacity-0");
+        addLocationBox.classList.add("z-10","opacity-100");
     });
 }
 showAddLocationBox();
@@ -1327,8 +1327,8 @@ function hideAddLocationBox() {
     const addLocInputBox = document.querySelector(".addLocInputBox");
     const suggestions = document.getElementById("suggestions");
     hideLocBtn.addEventListener("click", ()=> {
-        addLocationBox.classList.remove("w-1/3","z-10","opacity-100","h-2/3");
-        addLocationBox.classList.add("w-0","-z-10","opacity-0","h-0");
+        addLocationBox.classList.remove("z-10","opacity-100");
+        addLocationBox.classList.add("-z-10","opacity-0");
         addLocInputBox.value = "";
         suggestions.innerHTML = "";
     });

@@ -22,7 +22,7 @@
             <p class="font-semibold text-(--weather-main-text)">Loading City Data</p>
         </div>
 
-        <div class="addLocationBox absolute -z-10 w-0 h-0 opacity-0 border left-[35%] mt-[6%] rounded-2xl bg-(--weather-bg) border-(--weather-active-icons) shadow-2xl px-4 py-2 box-border shrink-0 transition-all duration-300 ease-in-out">
+        <div class="addLocationBox absolute -z-10 opacity-0 desk:w-1/3 lap:max-desk:w-[40%] tab:max-lap:w-1/2 border left-[35%] lap:top-[10%] tab:max-lap:top-[15%] smallMob:max-tab:top-[10%] largeMob:max-tab:w-1/2 rounded-2xl bg-(--weather-bg) border-(--weather-active-icons) shadow-2xl px-4 py-2 box-border shrink-0 transition-all duration-300 ease-in-out">
             <svg class="hideALBtn w-10 h-10 text-(--weather-main-text) absolute right-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8L8 16M12 12L16 16M8 8L10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <div class="flex gap-3">
                 <svg class="w-7 h-7 text-(--weather-main-text) mt-1 cursor-pointer" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
@@ -511,7 +511,7 @@
                 </div>
             </div>
 
-            <div class="hourly-fc-container mt-5 rounded-2xl mx-3 my-2 px-3 py-4 bg-(--weather-cards) shadow">
+            <div class="hourly-fc-container mt-5 rounded-2xl mx-3 my-2 px-3 py-4 bg-(--weather-cards) shadow border border-(--weather-active-icons)">
                 <p class="text-(--weather-main-text) font-semibold">HOURLY FORECAST</p>
 
                 <div class="h-fc-boxes flex gap-1 mt-2 p-1 bg-(--weather-hover-btn) rounded-xl overflow-x-scroll scrollbar-none">
@@ -543,7 +543,7 @@
 
             <div class="grid tab:grid-cols-2 max-tab:grid-cols-1 max-tab:h-fit relative tab:h-full desk:max-largDesk:h-full">
 
-                <div class="7d-fc-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%]">
+                <div class="7d-fc-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%] border border-(--weather-active-icons)">
                     <p class="font-semibold text-(--weather-main-text)">7-DAYS FORECAST</p>
                     <hr class="border border-(--weather-muted-text) mt-3 mb-3 relative">
                     <div class="daily-fc relative space-y-2 text-(--weather-normal-text)">
@@ -740,7 +740,7 @@
                 </div>
                 </div>
 
-                <div class="w-a-g-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%] text-(--weather-normal-text)">
+                <div class="w-a-g-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) h-[95%] text-(--weather-normal-text) border border-(--weather-active-icons)">
                     <p class="font-semibold text-(--weather-main-text)">WEATHER AT A GLANCE</p>
                     <div class="grid grid-cols-3 grid-rows-3 gap-3 mt-6 h-[88%] w-full items-center lap:max-desk:h-[85%]">
 
@@ -829,7 +829,7 @@
             <div class="grid tab:grid-cols-2 max-tab:grid-cols-1 max-tab:h-fit relative tab:h-full desk:max-largDesk:h-full">
 
                 <div
-                    class="temp-ov-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col">
+                    class="temp-ov-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col border border-(--weather-active-icons)">
                     <div class="t-ov-header flex justify-between shrink-0">
                         <p class="font-semibold text-(--weather-main-text)">TEMPERATURE OVERVIEW</p>
                         <p class="text-(--weather-normal-text) smallMob:max-largeMob:text-sm">Today</p>
@@ -842,7 +842,7 @@
                 </div>
 
                 <div
-                    class="wind-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col">
+                    class="wind-container px-4 py-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col border border-(--weather-active-icons)">
                     <p class="font-semibold text-(--weather-main-text) shrink-0">WIND</p>
                     <div class="relative shrink-0">
                         <div class="w-c-content relative mt-5 flex flex-col gap-2 mx-2">
@@ -894,7 +894,7 @@
 
             <div class="grid tab:grid-cols-2 max-tab:grid-cols-1 max-tab:h-fit relative tab:h-full desk:max-largDesk:h-full">
 
-                <div class="aqi-card px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col pb-2">
+                <div class="aqi-card px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col pb-2 border border-(--weather-active-icons)">
                     <p class="text(--weather-main-text) font-semibold text-(--weather-main-text)">AIR QUALITY</p>
                     <div class="mt-5 flex flex-col gap-2">
                         <p class="text-(--weather-normal-text)">AQI</p>
@@ -958,7 +958,7 @@
                     </div>
                 </div>
 
-                <div class="uv-i-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col">
+                <div class="uv-i-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col border border-(--weather-active-icons)">
                     <p class="text-(--weather-main-text) font-semibold">UV INDEX</p>
                     <div class="flex justify-between items-center mt-5">
                         <div>
@@ -1001,7 +1001,7 @@
 
             <div class="grid tab:grid-cols-2 max-tab:grid-cols-1 max-tab:h-fit relative tab:h-full desk:max-largDesk:h-full">
 
-                <div class="rise-set-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col lap:max-desk:h-full">
+                <div class="rise-set-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col lap:max-desk:h-full border border-(--weather-active-icons)">
                     <p class="text-(--weather-main-text) font-semibold">SUNRISE & SUNSET</p>
                     <div class="sr-st-graph relative h-[55%] w-full mt-auto mb-auto lap:max-desk:h-full smallMob:max-largeMob:mt-2">
                         <svg class="text-(--weather-normal-text) relative flex justify-self-center lap:max-desk:w-60 lap:max-desk:h-auto" width="320" height="190" viewBox="0 0 320 150">
@@ -1069,7 +1069,7 @@
                     </div>
                 </div>
 
-                <div class="weather-alert-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col lap:max-desk:h-full">
+                <div class="weather-alert-container px-4 pt-4 rounded-2xl mx-3 my-2 relative shadow bg-(--weather-cards) box-border min-h-0 flex flex-col lap:max-desk:h-full border border-(--weather-active-icons)">
                     <p class="text-(--weather-alert-text) font-semibold">WEATHER ALERTS</p>
                     <div class="relative flex items-center space-x-2 mt-[5%]">
                         <div class="alert-icon">
