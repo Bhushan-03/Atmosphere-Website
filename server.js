@@ -19,12 +19,17 @@ async function getCoordinates(city) {
 
         if(!response.ok) {
             throw new Error(`Response status: ${response.status}`);
+            return "No data found for given location";
         }
         const data = await response.json();
+        if (data.total_results === 0) {
+            return "No data found for given location";
+        }
         return data;
     }
     catch (error) {
         console.error(error.message);
+        return "No data found for given location";
     }
 }
 
@@ -328,6 +333,9 @@ async function getDailyData(data) {
 
 async function main(cityname) {
     const apiResponse = await getCoordinates(cityname);
+    if (apiResponse === "No data found for given location") {
+        return {"Error": "No data found for given location"}
+    }
     const lat = apiResponse.results[0].geometry.lat;
     const lon = apiResponse.results[0].geometry.lng;
     const locationName = {"CityName" : await getLocationName(apiResponse)};
@@ -338,6 +346,85 @@ async function main(cityname) {
     const dailyData = await getDailyData(weatherData);
     return combined = {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
 }
+
+async function currentLocMain(lat,lon, cname) {
+    const locationName = {"CityName" : cname};
+    const weatherData = await getWeather(lat, lon);
+    const AirQualityData = await getAirData(lat, lon);
+    const cwData = await getCurrentWeather(weatherData, AirQualityData);
+    const hourlyData = await getHourlyData(weatherData);
+    const dailyData = await getDailyData(weatherData);
+    return combined = {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
+}
+
+async function getCityFromCoordinates(lat, lon) {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+      {
+        headers: {
+          "User-Agent": "YourWeatherApp/1.0"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Geocoding failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    const address = data.address;
+
+    // Different locations can use different fields
+    const city =
+      address.city ||
+      address.town ||
+      address.village ||
+      address.municipality ||
+      address.county;
+
+    if (!city) {
+      throw new Error("Could not determine city from coordinates");
+    }
+
+    return {
+      city,
+      state: address.state || null,
+      country: address.country || null,
+      postcode: address.postcode || null,
+      displayName: data.display_name
+    };
+
+  } catch (error) {
+    console.error("Reverse geocoding error:", error);
+    throw error;
+  }
+}
+
+app.get("/location/:lat/:lon", async (req, res) => {
+  try {
+    const { lat, lon } = req.params;
+
+    const location = await getCityFromCoordinates(lat, lon);
+
+    // Use the city with your existing weather function
+    const WeatherRes = await currentLocMain(lat,lon,`${location.city}, ${location.state}`);
+
+    res.json({
+      location,
+      weather: WeatherRes
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      error: "Unable to determine location"
+    });
+  }
+});
+
 
 app.get("/city/:cityName", async (req,res) => {
     const cityName = req.params.cityName;

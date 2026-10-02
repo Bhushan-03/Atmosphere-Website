@@ -320,12 +320,7 @@ function setUIData(data) {
     cw_wGusts.innerText = `${data.cwWindGusts} km/h`;
 }
 
-async function handleCitySearch(cityName) {
-    showUpdatingLoader();
-    const data = await getWeatherData(cityName);
-    if (!data) {
-        return;
-    }
+async function onChange(data) {
     const weatherCondition = data.Current.cWeatherConditionTheme;
     updateDynamicTheme(weatherCondition);
     setWeatherCardBG(weatherCondition);
@@ -339,7 +334,23 @@ async function handleCitySearch(cityName) {
     temo_ov_linegraph(data);
     windChart(data);
     hideUpdatingLoader();
-    return data;
+}
+
+async function handleCitySearch(cityName) {
+    showUpdatingLoader();
+    const data = await getWeatherData(cityName);
+    console.log(data)
+    if (!data) {
+        return;
+    }
+    if (data.Error === "No data found for given location") {
+        hideUpdatingLoader();
+        alert(`Error: ${data.Error}`);
+    }
+    else {
+        onChange(data);
+        return data;
+    }
 }
 
 function getCityInput() {
@@ -921,38 +932,101 @@ updateStoredLocations();
 async function main() {
     
     const locNamesList = await fetchLocationNames();
-    console.log(locNamesList);
     locationAutoSuggest(locNamesList);
 
     // showSkeletonLoader(true);
     const defaultCityName = getDefaultCity();
     const data = await getWeatherData(defaultCityName);
-    
-    console.log(data.dailyData);
+
     if (!data) {
         return;
     }
+
+    if (data.Error === "No data found for given location") {
+        alert(`Error: ${data.Error}`);
+    }
+    else {
+
+        // hideSkeletonLoader(false);
     
-    // hideSkeletonLoader(false);
-    
-    setHeroSectionData(data.Current);
-    setWAGData(data.Current);
-    setUIData(data.Current);
-    setHourlyData(data);
-    setDailyFC(data);
-    setWeatherAlert(data);
-    setTempBar();
-    temo_ov_linegraph(data);
-    windChart(data);
-    updateDynamicTheme(data.Current.cWeatherConditionTheme);
-    setWeatherCardBG(data.Current.cWeatherConditionTheme);
-    currentThemeMode = "Dynamic Mode";
-    weatherOptions(data.Current.cWeatherConditionTheme);
-    getCityInput();
-    sideBarOptions();
-    locationOptions();
+        setHeroSectionData(data.Current);
+        setWAGData(data.Current);
+        setUIData(data.Current);
+        setHourlyData(data);
+        setDailyFC(data);
+        setWeatherAlert(data);
+        setTempBar();
+        temo_ov_linegraph(data);
+        windChart(data);
+        updateDynamicTheme(data.Current.cWeatherConditionTheme);
+        setWeatherCardBG(data.Current.cWeatherConditionTheme);
+        currentThemeMode = "Dynamic Mode";
+        weatherOptions(data.Current.cWeatherConditionTheme);
+        getCityInput();
+        sideBarOptions();
+        locationOptions();
+
+    }
+
 }
 main();
+
+currentLocBtn();
+function currentLocBtn() {
+    const currentLoc = document.querySelector(".currentLoc").addEventListener("click", async()=> {
+        console.log("current location clicked")
+        const {lat,lon} = await getCurrentLocation();
+        await getCLData(lat, lon);
+    })
+}
+
+async function getCLData(lat,lon) {
+
+    try {
+        const response = await fetch(`http://localhost:3000/location/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        await onChange(data.weather)
+        // return data;
+    } 
+    catch (error) {
+        console.error("Error:", error);
+        return null;
+    }
+    
+}
+
+function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error("Geolocation is not supported by this browser"));
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                console.log(lat, lon);
+
+                resolve({ lat, lon });
+            },
+            function (error) {
+                reject(error);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    });
+}
+
 
 function sBForecastBtn() {
     const ForecastBtn = document.querySelector(".ForecastBtn");
