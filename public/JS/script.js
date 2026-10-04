@@ -71,7 +71,7 @@ const WEATHER_ALERT_CONFIG = {
 
 async function getWeatherData(cityName = "Mumbai") {
     try {
-        const response = await fetch(`http://localhost:3000/city/${encodeURIComponent(cityName)}`);
+        const response = await fetch(`https://the-atmosphere.onrender.com/city/${encodeURIComponent(cityName)}`);
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
         }
@@ -233,7 +233,6 @@ function setHeroSectionData(data) {
 function setWAGData(data) {
     const wag_Humidity = document.querySelector(".wag-Humidity");
     const wag_windSpeed = document.querySelector(".wag-windSpeed");
-    // const wag_windDirection = document.querySelector(".wag-windDirection");
     const wag_Precipitation = document.querySelector(".wag-Precipitation");
     const wag_uvIndex = document.querySelector(".wag-uvIndex");
     const wag_Visibility = document.querySelector(".wag-Visibility");
@@ -244,7 +243,6 @@ function setWAGData(data) {
 
     wag_Humidity.innerText = `${data.cHumidity}%`;
     wag_windSpeed.innerText = `${data.cwWindSpeed} km/h`;
-    // wag_windDirection.innerText = `${data.cwWindDirection}`;
     wag_Precipitation.innerText = `${data.cwPrecipitation} mm`;
     wag_uvIndex.innerText = `${data.cwUVIndex}`;
     wag_Visibility.innerText = `${data.cVisibility}km`;
@@ -1005,7 +1003,7 @@ function currentLocBtn() {
 async function getCLData(lat,lon) {
 
     try {
-        const response = await fetch(`http://localhost:3000/location/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`);
+        const response = await fetch(`https://the-atmosphere.onrender.com/location/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`);
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
         }
