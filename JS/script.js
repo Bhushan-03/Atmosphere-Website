@@ -1,5 +1,6 @@
 let currentDynamicTheme = "dynamicThemeSunny";
 let currentThemeMode = "Dynamic Mode";
+let currentWeatherCondition = "Clear Sky";
 
 const WEATHER_ALERT_CONFIG = {
     heavyRain: {
@@ -139,6 +140,7 @@ function themeSetter() {
 }
 
 function setWeatherCardBG(weatherCondition) {
+    if (weatherCondition) currentWeatherCondition = weatherCondition;
     const weathercard = document.querySelector(".weather-Main-Card");
     const selected = document.querySelector(".selected");
     const conditions = {
@@ -150,7 +152,7 @@ function setWeatherCardBG(weatherCondition) {
         "Fog": "Fog.png",
         "Snow": "Snow.png"
     };
-    if (!selected) {
+    if (!selected || !conditions[weatherCondition]) {
         return;
     }
     // console.log(selected.dataset.selectedmode);
@@ -163,7 +165,7 @@ function setWeatherCardBG(weatherCondition) {
     }
 }
 
-function weatherOptions(weatherCondition) {
+function weatherOptions() {
     const dropdown = document.querySelectorAll('.dropdown');
 
     dropdown.forEach(theme_option => {
@@ -185,7 +187,7 @@ function weatherOptions(weatherCondition) {
                 selected.dataset.selectedmode = option.innerText;
                 console.log(option.innerText);
                 themeSetter();
-                setWeatherCardBG(weatherCondition);
+                setWeatherCardBG(currentWeatherCondition);
                 select.classList.remove("selected-clicked");
                 caret.classList.remove("caret-rotate");
                 menu.classList.remove("menu-open");
@@ -243,7 +245,7 @@ function setWAGData(data) {
     wag_Humidity.innerText = `${data.cHumidity}%`;
     wag_windSpeed.innerText = `${data.cwWindSpeed} km/h`;
     // wag_windDirection.innerText = `${data.cwWindDirection}`;
-    wag_Precipitation.innerText = `${data.cwPrecipitation}%`;
+    wag_Precipitation.innerText = `${data.cwPrecipitation} mm`;
     wag_uvIndex.innerText = `${data.cwUVIndex}`;
     wag_Visibility.innerText = `${data.cVisibility}km`;
     wag_CloudCover.innerText = `${data.cwCloudCover}%`;
@@ -268,26 +270,26 @@ function setGauge(value) {
     const centerY = 145;
 
     const endX = centerX + length * Math.cos(radians);
-    const endY = centerX - length * Math.sin(radians);
+    const endY = centerY - length * Math.sin(radians);
 
     document.getElementById("indicator").setAttribute("x2", endX);
     document.getElementById("indicator").setAttribute("y2", endY);
 }
 
 function getUVILevel(uvIndex) {
-    if (uvIndex <= 2) return "Low";
-    if (uvIndex <= 5) return "Moderate";
-    if (uvIndex <= 7) return "High";
-    if (uvIndex <= 10) return "Very High";
-    if (uvIndex >= 11) return "Extreme";
+    if (uvIndex < 3) return "Low";
+    if (uvIndex < 6) return "Moderate";
+    if (uvIndex < 8) return "High";
+    if (uvIndex < 11) return "Very High";
+    return "Extreme";
 }
 
 function getUVIRecommendation(uvIndex) {
-    if (uvIndex <= 2) return "Sun protection is generally not needed.";
-    if (uvIndex <= 5) return "Sun protection is recommended.";
-    if (uvIndex <= 7) return "Sun protection is recommended.";
-    if (uvIndex <= 10) return "Extra sun protection is recommended.";
-    if (uvIndex >= 11) return "Avoid sun exposure when possible. Extra sun protection is essential.";
+    if (uvIndex < 3) return "Sun protection is generally not needed.";
+    if (uvIndex < 6) return "Sun protection is recommended.";
+    if (uvIndex < 8) return "Sun protection is recommended.";
+    if (uvIndex < 11) return "Extra sun protection is recommended.";
+    return "Avoid sun exposure when possible. Extra sun protection is essential.";
 }
 
 
@@ -306,7 +308,7 @@ function setUIData(data) {
     setGauge(data.cwUVIndex);
     setWindDirection(data.cwWindDirection);
     setAQIData(data);
-    updateSunPosition(data.cwSunrise, data.cwSunset);
+    updateSunPosition(data.cwSunrise, data.cwSunset, data.cTime);
     cw_uvIndex.innerText = `${data.cwUVIndex}`;
     uvi_recommendation.innerText = `${getUVIRecommendation(data.cwUVIndex)}`;
     cw_uvLevel.innerText = `${getUVILevel(data.cwUVIndex)}`;
@@ -321,6 +323,7 @@ function setUIData(data) {
 }
 
 async function onChange(data) {
+  try {
     const weatherCondition = data.Current.cWeatherConditionTheme;
     updateDynamicTheme(weatherCondition);
     setWeatherCardBG(weatherCondition);
@@ -333,7 +336,9 @@ async function onChange(data) {
     setTempBar();
     temo_ov_linegraph(data);
     windChart(data);
+  } finally {
     hideUpdatingLoader();
+  }
 }
 
 async function handleCitySearch(cityName) {
@@ -341,6 +346,7 @@ async function handleCitySearch(cityName) {
     const data = await getWeatherData(cityName);
     console.log(data)
     if (!data) {
+        hideUpdatingLoader();
         return;
     }
     if (data.Error === "No data found for given location") {
@@ -657,11 +663,12 @@ function formatWeatherTime(time) {
 }
 
 function getAlertTimeRange(alerts) {
-    if (!alerts.length) {
+    if (!alerts.length || !alerts[0].time) {
         return null;
     }
     const first = formatWeatherTime(alerts[0].time);
-    return `${first}`;
+    const last = formatWeatherTime(alerts[alerts.length - 1].time);
+    return first === last ? first : `${first} and ${last}`;
 }
 
 function setWeatherAlert(data) {
@@ -709,7 +716,8 @@ function setWeatherAlert(data) {
     // ==================================
     // SELECT DISPLAY ALERT
     // ==================================
-    const alertType = Object.keys(groups)[0];
+    const severityOrder = ["thunderstorm", "heavyRain", "extremeHeat", "extremeCold", "snow", "strongWind", "poorVisibility", "rain", "highUV"];
+    const alertType = severityOrder.find(t => groups[t]);
     const alertGroup = groups[alertType];
     const config = WEATHER_ALERT_CONFIG[alertType];
 
@@ -793,13 +801,12 @@ function sideBarOptions() {
 }
 
 function locationOptions() {
-    const locationOptions = document.querySelectorAll(".locationsOption");
-    locationOptions.forEach(btn => {
-        btn.addEventListener("click", ()=> {
-            locationOptions.forEach(button => button.classList.remove("active-Btn"));
-            btn.classList.add("active-Btn");
-            handleCitySearch(btn.innerText);
-        });
+    document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".locationsOption");
+        if (!btn) return;
+        document.querySelectorAll(".locationsOption").forEach(button => button.classList.remove("active-Btn"));
+        btn.classList.add("active-Btn");
+        handleCitySearch(btn.innerText.trim());
     });
 }
 
@@ -843,7 +850,7 @@ function locationAutoSuggest(locations) {
             location.toLowerCase().startsWith(value)
         );
 
-        matches.forEach(location => {
+        matches.slice(0, 8).forEach(location => {
             const li = document.createElement("li");
             li.textContent = location;
             li.style.cursor = "pointer";
@@ -879,9 +886,20 @@ function getStoredLocations() {
 
 function addLocationData(newLocation) {
     let locations = JSON.parse(localStorage.getItem("locations")) || [];
+    newLocation = newLocation.trim();
+    if (!newLocation || locations.some(l => l.toLowerCase() === newLocation.toLowerCase())) {
+        return;
+    }
     locations.push(newLocation);
     localStorage.setItem("locations", JSON.stringify(locations));
     setStoredLocations();
+    updateSBLocations();
+}
+
+function escapeHTML(str) {
+    const d = document.createElement("div");
+    d.textContent = str;
+    return d.innerHTML;
 }
 
 function setStoredLocations() {
@@ -892,7 +910,7 @@ function setStoredLocations() {
         savedLocations.innerHTML = savedLocations.innerHTML +
         `<li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-full transition-all duration-300 ease-in-out cursor-pointer pl-5 border border-(--weather-active-icons)">
             <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
-            <p class="text-(--weather-main-text)">${location}</p>
+            <p class="text-(--weather-main-text)">${escapeHTML(location)}</p>
         </button></li>`
     });
 }
@@ -905,7 +923,7 @@ function updateSBLocations() {
         sbSavedLocations.innerHTML = sbSavedLocations.innerHTML +
         `<li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out cursor-pointer">
                 <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
-                <p class="text-(--weather-main-text)">${location}</p>
+                <p class="text-(--weather-main-text)">${escapeHTML(location)}</p>
             </button>
         </li>`
     })
@@ -933,6 +951,9 @@ async function main() {
     
     const locNamesList = await fetchLocationNames();
     locationAutoSuggest(locNamesList);
+    getCityInput();
+    sideBarOptions();
+    locationOptions();
 
     // showSkeletonLoader(true);
     const defaultCityName = getDefaultCity();
@@ -961,10 +982,7 @@ async function main() {
         updateDynamicTheme(data.Current.cWeatherConditionTheme);
         setWeatherCardBG(data.Current.cWeatherConditionTheme);
         currentThemeMode = "Dynamic Mode";
-        weatherOptions(data.Current.cWeatherConditionTheme);
-        getCityInput();
-        sideBarOptions();
-        locationOptions();
+        weatherOptions();
 
     }
 
@@ -975,8 +993,12 @@ currentLocBtn();
 function currentLocBtn() {
     const currentLoc = document.querySelector(".currentLoc").addEventListener("click", async()=> {
         console.log("current location clicked")
-        const {lat,lon} = await getCurrentLocation();
-        await getCLData(lat, lon);
+        try {
+            const {lat,lon} = await getCurrentLocation();
+            await getCLData(lat, lon);
+        } catch (error) {
+            alert(`Could not get your location: ${error.message}`);
+        }
     })
 }
 
@@ -1141,17 +1163,7 @@ function temo_ov_linegraph(data) {
                 size: 9,
             },
         },
-        grid: {
-            show: true,
-            padding: {
-                bottom: 0,
-            },
-        },
-        
         yaxis: {
-            min: 14,
-            max: 36,
-            tickAmount: 11,
             labels: {
                 style: {
                     color: '#6E729B',
@@ -1335,7 +1347,7 @@ function updateAQI(aqi) {
 
 
 function timeToMinutes(time) {
-    const [timePart, period] = time.trim().split(" ");
+    const [timePart, period] = time.trim().split(/\s+/);
     let [hours, minutes] = timePart.split(":").map(Number);
     if (period === "PM" && hours !== 12) {
         hours += 12;
@@ -1347,17 +1359,16 @@ function timeToMinutes(time) {
 }
 
 
-function updateSunPosition(sunriseText, sunsetText) {
+function updateSunPosition(sunriseText, sunsetText, nowText) {
 
     const sunrise = timeToMinutes(sunriseText);
     const sunset = timeToMinutes(sunsetText);
 
     const now = new Date();
 
-    const currentTime =
-        now.getHours() * 60 +
-        now.getMinutes() +
-        now.getSeconds() / 60;
+    const currentTime = nowText
+        ? timeToMinutes(nowText)
+        : now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
 
     // Calculate progress from sunrise → sunset
     let progress =

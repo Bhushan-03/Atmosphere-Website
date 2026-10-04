@@ -12,7 +12,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 async function getCoordinates(city) {
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${process.env.OpenCage_API_KEY}&pretty=1&no_annotations=1`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(city)}&key=${process.env.OpenCage_API_KEY}&pretty=1&no_annotations=1`;
 
     try{
         const response = await fetch(url);
@@ -50,7 +50,7 @@ async function getWeather(lat,lon) {
 
 async function getAirData(lat, lon) {
     try {
-        let response = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,pm10,pm2_5,nitrogen_dioxide,ozone,carbon_monoxide,sulphur_dioxide&utm_source=chatgpt.com`);
+        let response = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,ozone,carbon_monoxide,sulphur_dioxide`);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -65,12 +65,12 @@ async function getAirData(lat, lon) {
 
 async function getWDName(data) {
     const DI = {0:"North", 1:"Northeast", 2:"East", 3:"Southeast", 4:"South", 5:"Southwest", 6:"West", 7:"Northwest"};
-    let wdIndex = Math.trunc((data["current"]["wind_direction_10m"] + 22.5) / 45)
+    let wdIndex = Math.trunc((data["current"]["wind_direction_10m"] + 22.5) / 45) % 8
     return DI[wdIndex];
 }
 
 async function getPrecipitation(data) {
-    return (data["current"]["precipitation"] * 100);
+    return data["current"]["precipitation"];
 }
 
 function getWCTheme(data) {
@@ -95,8 +95,9 @@ function getWeatherCondition(data) {
     if ([56, 57].includes(weatherCode)) return "Freezing drizzle";
     if ([61, 63, 65].includes(weatherCode)) return "Rain";
     if ([66, 67].includes(weatherCode)) return "Freezing rain";
-    if ([71, 73, 75, 77].includes(weatherCode)) return "Snow";
+    if ([71, 73, 75, 77, 85, 86].includes(weatherCode)) return "Snow";
     if ([80, 81, 82].includes(weatherCode)) return "Rain showers";
+    if (weatherCode === 95) return "Thunderstorm";
     if ([96, 99].includes(weatherCode)) return "Thunderstorm with hail";
     return "Unknown";
 }
@@ -131,7 +132,7 @@ async function getCurrentWeather(data, airData) {
     cw_map.set("cwSunrise", `${await getSunrise(data)}`);
     cw_map.set("cwSunset", `${await getSunset(data)}`);
     cw_map.set("cwDayLightDuration", `${await formatDuration(data.daily.daylight_duration[0])}`);
-    cw_map.set("caqAQI", `${airData.current.european_aqi}`);
+    cw_map.set("caqAQI", `${airData.current.us_aqi}`);
     cw_map.set("caqPM10", `${airData.current.pm10}`);
     cw_map.set("caqPM2_5", `${airData.current.pm2_5}`);
     cw_map.set("caqNO2", `${airData.current.nitrogen_dioxide}`);
@@ -189,7 +190,7 @@ async function formatDuration(seconds) {
 async function getLocationName(response) {
     if (response.results[0].components.city) {
         // console.log(`${response.results[0].components.city}, ${response.results[0].components.state}`);
-        return `${response.results[0].components.city}, ${response.results[0].components.state}`;
+        return [response.results[0].components.city, response.results[0].components.state].filter(Boolean).join(", ");
     }
     else if (!response.results[0].components.city) {
         return response.results[0].formatted;
@@ -340,21 +341,23 @@ async function main(cityname) {
     const lon = apiResponse.results[0].geometry.lng;
     const locationName = {"CityName" : await getLocationName(apiResponse)};
     const weatherData = await getWeather(lat, lon);
-    const AirQualityData = await getAirData(lat, lon);
+    if (!weatherData) throw new Error("Weather service unavailable");
+    const AirQualityData = (await getAirData(lat, lon)) || { current: {} };
     const cwData = await getCurrentWeather(weatherData, AirQualityData);
     const hourlyData = await getHourlyData(weatherData);
     const dailyData = await getDailyData(weatherData);
-    return combined = {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
+    return {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
 }
 
 async function currentLocMain(lat,lon, cname) {
     const locationName = {"CityName" : cname};
     const weatherData = await getWeather(lat, lon);
-    const AirQualityData = await getAirData(lat, lon);
+    if (!weatherData) throw new Error("Weather service unavailable");
+    const AirQualityData = (await getAirData(lat, lon)) || { current: {} };
     const cwData = await getCurrentWeather(weatherData, AirQualityData);
     const hourlyData = await getHourlyData(weatherData);
     const dailyData = await getDailyData(weatherData);
-    return combined = {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
+    return {"Current": {...locationName, ...Object.fromEntries(cwData)}, hourlyData, dailyData};
 }
 
 async function getCityFromCoordinates(lat, lon) {
@@ -405,11 +408,14 @@ async function getCityFromCoordinates(lat, lon) {
 app.get("/location/:lat/:lon", async (req, res) => {
   try {
     const { lat, lon } = req.params;
+    if (!Number.isFinite(Number(lat)) || !Number.isFinite(Number(lon))) {
+      return res.status(400).json({ error: "Invalid coordinates" });
+    }
 
     const location = await getCityFromCoordinates(lat, lon);
 
     // Use the city with your existing weather function
-    const WeatherRes = await currentLocMain(lat,lon,`${location.city}, ${location.state}`);
+    const WeatherRes = await currentLocMain(lat,lon,[location.city, location.state].filter(Boolean).join(", "));
 
     res.json({
       location,
@@ -427,15 +433,15 @@ app.get("/location/:lat/:lon", async (req, res) => {
 
 
 app.get("/city/:cityName", async (req,res) => {
-    const cityName = req.params.cityName;
-    console.log(cityName);
-    const WeatherRes = await main(cityName);
-    res.json(WeatherRes);
+    try {
+        const cityName = req.params.cityName;
+        const WeatherRes = await main(cityName);
+        res.json(WeatherRes);
+    } catch (error) {
+        console.error(error);
+        res.status(502).json({ Error: "Unable to fetch weather data" });
+    }
 });
 
 
-app.get("/", async (req,res) => {
-    const cWeather = await main();
-    res.json(cWeather);
-});
 app.listen(port);
