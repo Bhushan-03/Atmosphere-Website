@@ -59,16 +59,6 @@ const WEATHER_ALERT_CONFIG = {
     }
 };
 
-// function showSkeletonLoader(isLoading){
-//     document.querySelector(".mainScreen").classList.toggle("animate-skeleton-loading-dark", isLoading);
-//     document.querySelector(".weather-Main-Card").classList.toggle("animate-skeleton-loading", isLoading);
-// }
-// function hideSkeletonLoader(isLoading){
-//     document.querySelector(".mainScreen").classList.remove("animate-skeleton-loading-dark", isLoading);
-//     document.querySelector(".weather-Main-Card").classList.remove("animate-skeleton-loading", isLoading);
-//     document.querySelector(".cwLocationIcon").classList.remove("hidden", isLoading);
-// }
-
 const API_BASE = "https://the-atmosphere.onrender.com";
 
 // Open-Meteo is called from the visitor's browser, so each visitor uses their own IP
@@ -859,6 +849,18 @@ function hideUpdatingLoader() {
     UpdateLoader.classList.add("w-0", "max-w-0", "opacity-0", "-z-10");
 }
 
+function loadingScreen(bool) {
+    const loadingScreen = document.querySelector(".loading");
+    if (bool === false) {
+        loadingScreen.classList.remove("opacity-100", "z-10", "w-full", "h-full");
+        loadingScreen.classList.add("w-0", "h-0", "opacity-0", "-z-10");
+    }
+    else if (bool === true) {
+        loadingScreen.classList.remove("w-0", "h-0", "opacity-0", "-z-10");
+        loadingScreen.classList.add("opacity-100", "z-10", "w-full", "h-full");
+    }
+}
+
 function checkDefaultCity(cityName) {
     const locationOptions = document.querySelectorAll(".locationsOption");
     locationOptions.forEach(btn => {
@@ -953,7 +955,7 @@ function updateSBLocations() {
     sbSavedLocations.innerHTML = "";
     locations.forEach(location => {
         sbSavedLocations.innerHTML = sbSavedLocations.innerHTML +
-        `<li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-3/4 transition-all duration-300 ease-in-out cursor-pointer">
+        `<li><button class="locationsOption flex items-center space-x-3 py-2 px-2 rounded-full w-full transition-all duration-300 ease-in-out cursor-pointer">
                 <svg class="w-4.5 h-4.5 text-(--weather-main-text)" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-106.000000, -413.000000)" fill="currentColor"><path d="M118,422 C116.343,422 115,423.343 115,425 C115,426.657 116.343,428 118,428 C119.657,428 121,426.657 121,425 C121,423.343 119.657,422 118,422 L118,422 Z M118,430 C115.239,430 113,427.762 113,425 C113,422.238 115.239,420 118,420 C120.761,420 123,422.238 123,425 C123,427.762 120.761,430 118,430 L118,430 Z M118,413 C111.373,413 106,418.373 106,425 C106,430.018 116.005,445.011 118,445 C119.964,445.011 130,429.95 130,425 C130,418.373 124.627,413 118,413 L118,413 Z" id="location" sketch:type="MSShapeGroup"></path></g></g></svg>
                 <p class="text-(--weather-main-text)">${escapeHTML(location)}</p>
             </button>
@@ -980,42 +982,43 @@ function updateStoredLocations() {
 updateStoredLocations();
 
 async function main() {
-    
-    const locNamesList = await fetchLocationNames();
-    locationAutoSuggest(locNamesList);
-    getCityInput();
-    sideBarOptions();
-    locationOptions();
 
-    // showSkeletonLoader(true);
-    const defaultCityName = getDefaultCity();
-    const data = await getWeatherData(defaultCityName);
+    loadingScreen(true);
 
-    if (!data) {
-        return;
-    }
-
-    if (data.Error === "No data found for given location") {
-        alert(`Error: ${data.Error}`);
-    }
-    else {
-
-        // hideSkeletonLoader(false);
-    
-        setHeroSectionData(data.Current);
-        setWAGData(data.Current);
-        setUIData(data.Current);
-        setHourlyData(data);
-        setDailyFC(data);
-        setWeatherAlert(data);
-        setTempBar();
-        temo_ov_linegraph(data);
-        windChart(data);
-        updateDynamicTheme(data.Current.cWeatherConditionTheme);
-        setWeatherCardBG(data.Current.cWeatherConditionTheme);
-        currentThemeMode = "Dynamic Mode";
-        weatherOptions();
-
+    try {
+        const locNamesList = await fetchLocationNames();
+        locationAutoSuggest(locNamesList);
+        getCityInput();
+        sideBarOptions();
+        locationOptions();
+        
+        const defaultCityName = getDefaultCity();
+        const data = await getWeatherData(defaultCityName);
+        
+        if (!data) {
+            return;
+        }
+        
+        if (data.Error === "No data found for given location") {
+            alert(`Error: ${data.Error}`);
+        }
+        else {
+            setHeroSectionData(data.Current);
+            setWAGData(data.Current);
+            setUIData(data.Current);
+            setHourlyData(data);
+            setDailyFC(data);
+            setWeatherAlert(data);
+            setTempBar();
+            temo_ov_linegraph(data);
+            windChart(data);
+            updateDynamicTheme(data.Current.cWeatherConditionTheme);
+            setWeatherCardBG(data.Current.cWeatherConditionTheme);
+            currentThemeMode = "Dynamic Mode";
+            weatherOptions();
+        }
+    } finally {   
+        loadingScreen(false);
     }
 
 }
