@@ -69,15 +69,49 @@ const WEATHER_ALERT_CONFIG = {
 //     document.querySelector(".cwLocationIcon").classList.remove("hidden", isLoading);
 // }
 
+const API_BASE = "https://the-atmosphere.onrender.com";
+
+// Open-Meteo is called from the visitor's browser, so each visitor uses their own IP
+// (Render's shared IP was getting HTTP 429 from Open-Meteo).
+async function fetchOpenMeteo(lat, lon) {
+    const [weatherRes, airRes] = await Promise.all([
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=apparent_temperature_max,weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,uv_index_max,daylight_duration&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,rain,weather_code,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,visibility,rain,pressure_msl,temperature_2m_max,temperature_2m_min,uv_index&forecast_days=14&timezone=auto`),
+        fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi,pm10,pm2_5,nitrogen_dioxide,ozone,carbon_monoxide,sulphur_dioxide`).catch(() => null)
+    ]);
+    if (!weatherRes.ok) {
+        throw new Error(`HTTP error: ${weatherRes.status}`);
+    }
+    const weather = await weatherRes.json();
+    const air = airRes && airRes.ok ? await airRes.json() : null;
+    return { weather, air };
+}
+
+// Raw Open-Meteo data -> the same object the UI already expects (built by server.js)
+async function buildWeather(name, lat, lon) {
+    const { weather, air } = await fetchOpenMeteo(lat, lon);
+    const response = await fetch(`${API_BASE}/build`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, weather, air })
+    });
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+    }
+    return await response.json();
+}
+
 async function getWeatherData(cityName = "Mumbai") {
     try {
-        const response = await fetch(`https://the-atmosphere.onrender.com/city/${encodeURIComponent(cityName)}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+        const geoResponse = await fetch(`${API_BASE}/geocode/${encodeURIComponent(cityName)}`);
+        if (!geoResponse.ok) {
+            throw new Error(`HTTP error: ${geoResponse.status}`);
         }
-        const data = await response.json();
-        return data;
-    } 
+        const geo = await geoResponse.json();
+        if (geo.Error) {
+            return geo;
+        }
+        return await buildWeather(geo.name, geo.lat, geo.lon);
+    }
     catch (error) {
         console.error("Error:", error);
         return null;
@@ -1003,13 +1037,13 @@ function currentLocBtn() {
 async function getCLData(lat,lon) {
 
     try {
-        const response = await fetch(`https://the-atmosphere.onrender.com/location/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`);
+        const response = await fetch(`${API_BASE}/reverse/${encodeURIComponent(lat)}/${encodeURIComponent(lon)}`);
         if (!response.ok) {
             throw new Error(`HTTP error: ${response.status}`);
         }
-        const data = await response.json();
-        console.log(data);
-        await onChange(data.weather)
+        const place = await response.json();
+        const weather = await buildWeather(place.name, lat, lon);
+        await onChange(weather);
         // return data;
     } 
     catch (error) {

@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
@@ -446,5 +446,65 @@ app.get("/city/:cityName", async (req,res) => {
     }
 });
 
+
+// ---- PASTE THIS ABOVE app.listen(...) IN server.js -------------------------
+// Open-Meteo is now called from the visitor's browser (Render's shared IP was
+// getting HTTP 429). The server still keeps the OpenCage key private, and still
+// turns the raw weather data into the format the UI expects.
+
+// The browser sends the raw Open-Meteo JSON here (bigger than express's 100kb default)
+app.use("/build", express.json({ limit: "5mb" }));
+
+// 1) City name -> coordinates + display name (uses your OpenCage key)
+app.get("/geocode/:cityName", async (req, res) => {
+    try {
+        const apiResponse = await getCoordinates(req.params.cityName);
+        if (apiResponse === "No data found for given location") {
+            return res.json({ Error: "No data found for given location" });
+        }
+        res.json({
+            lat: apiResponse.results[0].geometry.lat,
+            lon: apiResponse.results[0].geometry.lng,
+            name: await getLocationName(apiResponse)
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(502).json({ Error: "Unable to find location" });
+    }
+});
+
+// 2) Coordinates -> city name (for the "Use Current Location" button)
+app.get("/reverse/:lat/:lon", async (req, res) => {
+    try {
+        const { lat, lon } = req.params;
+        if (!Number.isFinite(Number(lat)) || !Number.isFinite(Number(lon))) {
+            return res.status(400).json({ error: "Invalid coordinates" });
+        }
+        const location = await getCityFromCoordinates(lat, lon);
+        res.json({ name: [location.city, location.state].filter(Boolean).join(", ") });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Unable to determine location" });
+    }
+});
+
+// 3) Raw Open-Meteo data -> the object the UI uses (same shape /city used to return)
+app.post("/build", async (req, res) => {
+    try {
+        const { name, weather, air } = req.body || {};
+        if (!weather || !weather.current || !weather.hourly || !weather.daily) {
+            return res.status(400).json({ Error: "Invalid weather data" });
+        }
+        const airData = air && air.current ? air : { current: {} };
+        const cwData = await getCurrentWeather(weather, airData);
+        const hourlyData = await getHourlyData(weather);
+        const dailyData = await getDailyData(weather);
+        res.json({ Current: { CityName: name, ...Object.fromEntries(cwData) }, hourlyData, dailyData });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ Error: "Unable to process weather data" });
+    }
+});
+// -----------------------------------------------------------------------------
 
 app.listen(port);
