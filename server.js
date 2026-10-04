@@ -3,6 +3,9 @@ const app = express();
 require("dotenv").config();
 const port = 3000;
 
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
 const cors = require('cors');
 const corsOptions = {
     origin: true,
